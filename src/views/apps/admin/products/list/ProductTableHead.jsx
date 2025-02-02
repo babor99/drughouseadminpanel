@@ -14,10 +14,10 @@ const rows = [
         sort: false
     },
     {
-        id: 'logo',
+        id: 'thumbnail',
         align: 'left',
         disablePadding: false,
-        label: 'Logo',
+        label: 'Thumbnail',
         sort: true
     },
     {
@@ -28,45 +28,52 @@ const rows = [
         sort: true
     },
     {
-        id: 'year_started',
+        id: 'category',
         align: 'left',
         disablePadding: false,
-        label: 'Year Started',
+        label: 'Category',
         sort: true
     },
     {
-        id: 'state',
+        id: 'product_type',
         align: 'left',
         disablePadding: false,
-        label: 'State',
+        label: 'Type',
         sort: true
     },
     {
-        id: 'region',
+        id: 'unit_price',
         align: 'left',
         disablePadding: false,
-        label: 'District',
+        label: 'Unit Price',
         sort: true
     },
     {
-        id: 'address',
+        id: 'quantity',
         align: 'left',
         disablePadding: false,
-        label: 'Address',
+        label: 'Stock',
+        sort: true
+    },
+    {
+        id: 'manufacturer',
+        align: 'left',
+        disablePadding: false,
+        label: 'Manufacturer',
         sort: true
     },
     {
         id: 'created_at',
         align: 'left',
         disablePadding: false,
-        label: 'Created At',
+        label: 'Added on',
         sort: true
     },
     {
-        id: 'action',
+        id: 'actions',
         align: 'left',
         disablePadding: false,
-        label: 'Action',
+        label: 'Actions',
         sort: false
     }
 ];

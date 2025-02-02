@@ -48,7 +48,7 @@ const OrderForm = () => {
     const { reset, watch } = methods;
 
     useEffect(() => {
-        if (Object.keys(order).length) {
+        if ( order && Object.keys(order).length) {
             reset({ ...order })
         }
     }, [order])

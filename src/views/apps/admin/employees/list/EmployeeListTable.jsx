@@ -35,6 +35,7 @@ import OptionMenu from '@core/components/option-menu'
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 import { rowsPerPage } from '@/commons/dropdownOptions'
+import { BASE_URL } from '@/constants/constants'
 
 const ProductListTable = (props) => {
   const {
@@ -84,16 +85,15 @@ const ProductListTable = (props) => {
             className='max-sm:is-full'
             value={searchKeyword ?? ''}
             onChange={e => {
-              setSearchKeyword(e.target.value)
-
-
               if (e.target.value.length === 0) {
                 getAllEmployee({ ...params, keyword: '' })
+                setParams({ ...params, keyword: '' })
               }
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 getAllEmployee({ ...params, keyword: e.target.value })
+                setParams({ ...params, keyword: e.target.value })
               }
             }}
           />
@@ -142,8 +142,20 @@ const ProductListTable = (props) => {
                                 return o.name;
                               }
 
-                              case 'region': {
-                                return o.region ? o.region?.name : '';
+                              case 'email': {
+                                return o.email;
+                              }
+
+                              case 'phone_number': {
+                                return o.phone_number;
+                              }
+
+                              case 'title': {
+                                return o.title;
+                              }
+
+                              case 'branch': {
+                                return o.branch ? o.branch?.name : '';
                               }
 
                               default: {
@@ -182,7 +194,14 @@ const ProductListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                <Link href={getLocalizedUrl(`/apps/admin/employees/${n.id}`, locale)}>{n.name} {n.last_name}</Link>
+                                <img src={`${BASE_URL}/${n.image}`} height={40} width={40} alt='' />
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                <Link href={getLocalizedUrl(`/apps/admin/employees/${n.id}`, locale)}>{n.name}</Link>
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
@@ -203,22 +222,14 @@ const ProductListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                {n.birth_date &&
-                                  moment(new Date(n.birth_date)).format('L')}
+                                {n.title}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.state?.name}
-                              </TableCell>
-                              <TableCell
-                                className="px-2 md:px-4 whitespace-nowrap"
-                                component="th"
-                                scope="row"
-                              >
-                                {n.region?.name}
+                                {n.branch?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
@@ -226,13 +237,6 @@ const ProductListTable = (props) => {
                                 scope="row"
                               >
                                 {n.address}
-                              </TableCell>
-                              <TableCell
-                                className="px-2 md:px-4 whitespace-nowrap"
-                                component="th"
-                                scope="row"
-                              >
-                                {n.postal_code}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"

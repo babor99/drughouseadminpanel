@@ -48,7 +48,7 @@ const ProductForm = () => {
     const { reset, watch } = methods;
 
     useEffect(() => {
-        if (Object.keys(product).length) {
+        if (product && Object.keys(product).length) {
             reset({ ...product })
         }
     }, [product])

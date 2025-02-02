@@ -79,16 +79,15 @@ const OrderListTable = (props) => {
             className='max-sm:is-full'
             value={searchKeyword ?? ''}
             onChange={e => {
-              setSearchKeyword(e.target.value)
-
-
               if (e.target.value.length === 0) {
                 getAllOrder({ ...params, keyword: '' })
+                setParams({ ...params, keyword: '' })
               }
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 getAllOrder({ ...params, keyword: e.target.value })
+                setParams({ ...params, keyword: e.target.value })
               }
             }}
           />
@@ -133,12 +132,44 @@ const OrderListTable = (props) => {
                         [
                           o => {
                             switch (order.id) {
-                              case 'name': {
-                                return o.name;
+                              case 'order_no': {
+                                return o.order_no;
                               }
 
-                              case 'region': {
-                                return o.region ? o.region?.name : '';
+                              case 'customer_name': {
+                                return o.customer_name;
+                              }
+
+                              case 'customer_phone': {
+                                return o.customer_phone;
+                              }
+
+                              case 'created_at': {
+                                return o.created_at;
+                              }
+
+                              case 'net_amount': {
+                                return o.net_amount;
+                              }
+
+                              case 'grand_total': {
+                                return o.grand_total;
+                              }
+
+                              case 'user': {
+                                return o.user ? o.user?.name : '';
+                              }
+
+                              case 'status': {
+                                return o.status ? o.status?.name : '';
+                              }
+
+                              case 'payment_method': {
+                                return o.payment_method ? o.payment_method?.name : '';
+                              }
+
+                              case 'branch': {
+                                return o.branch ? o.branch?.name : '';
                               }
 
                               default: {
@@ -177,42 +208,63 @@ const OrderListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                <img src={n.logo} height={40} width={40} alt='' />
+                              <Link href={getLocalizedUrl(`/apps/admin/orders/${n.id}`, locale)}>{n.order_no}</Link>
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                <Link href={getLocalizedUrl(`/apps/admin/orders/${n.id}`, locale)}>{n.name}</Link>
+                                {n.status?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.year_started}
+                                {n.user?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.state?.name}
+                                {n.customer_name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.region?.name}
+                                {n.customer_phone}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.address}
+                                {n.net_amount}
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                {n.grand_total}
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                {n.payment_method?.name}
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                {n.branch?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"

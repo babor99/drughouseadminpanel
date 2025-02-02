@@ -35,6 +35,7 @@ import OptionMenu from '@core/components/option-menu'
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 import { rowsPerPage } from '@/commons/dropdownOptions'
+import { BASE_URL } from '@/constants/constants'
 
 const ProductListTable = (props) => {
   const {
@@ -79,16 +80,15 @@ const ProductListTable = (props) => {
             className='max-sm:is-full'
             value={searchKeyword ?? ''}
             onChange={e => {
-              setSearchKeyword(e.target.value)
-
-
               if (e.target.value.length === 0) {
                 getAllProduct({ ...params, keyword: '' })
+                setParams({ ...params, keyword: '' })
               }
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 getAllProduct({ ...params, keyword: e.target.value })
+                setParams({ ...params, keyword: e.target.value })
               }
             }}
           />
@@ -136,9 +136,29 @@ const ProductListTable = (props) => {
                               case 'name': {
                                 return o.name;
                               }
+                              
+                              case 'unit_price': {
+                                return o.unit_price;
+                              }
+                              
+                              case 'quantity': {
+                                return o.quantity;
+                              }
 
-                              case 'region': {
-                                return o.region ? o.region?.name : '';
+                              case 'category': {
+                                return o.category ? o.category?.name : '';
+                              }
+
+                              case 'product_type': {
+                                return o.product_type ? o.product_type?.name : '';
+                              }
+
+                              case 'manufacturer': {
+                                return o.manufacturer ? o.manufacturer?.name : '';
+                              }
+
+                              case 'created_at': {
+                                return o.created_at;
                               }
 
                               default: {
@@ -177,7 +197,7 @@ const ProductListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                <img src={n.logo} height={40} width={40} alt='' />
+                                <img src={`${BASE_URL}/${n.thumbnail}`} height={40} width={40} alt='' />
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
@@ -191,28 +211,35 @@ const ProductListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                {n.year_started}
+                                {n.category?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.state?.name}
+                                {n.product_type?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.region?.name}
+                                {n.unit_price}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.address}
+                                {n.quantity}
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                {n.manufacturer?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"

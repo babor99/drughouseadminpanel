@@ -14,6 +14,13 @@ const rows = [
         sort: false
     },
     {
+        id: 'image',
+        align: 'left',
+        disablePadding: false,
+        label: 'Image',
+        sort: true
+    },
+    {
         id: 'name',
         align: 'left',
         disablePadding: false,
@@ -28,31 +35,24 @@ const rows = [
         sort: true
     },
     {
-        id: 'phone',
+        id: 'phone_number',
         align: 'left',
         disablePadding: false,
-        label: 'Phone',
+        label: 'Phone Number',
         sort: true
     },
     {
-        id: 'birth_date',
+        id: 'title',
         align: 'left',
         disablePadding: false,
-        label: 'Date of Birth',
+        label: 'Title',
         sort: true
     },
     {
-        id: 'state',
+        id: 'branch',
         align: 'left',
         disablePadding: false,
-        label: 'State',
-        sort: true
-    },
-    {
-        id: 'region',
-        align: 'left',
-        disablePadding: false,
-        label: 'District',
+        label: 'Branch',
         sort: true
     },
     {
@@ -60,13 +60,6 @@ const rows = [
         align: 'left',
         disablePadding: false,
         label: 'Address',
-        sort: true
-    },
-    {
-        id: 'postal_code',
-        align: 'left',
-        disablePadding: false,
-        label: 'Zipcode',
         sort: true
     },
     {

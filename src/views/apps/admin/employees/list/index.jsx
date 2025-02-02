@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid'
 // Component Imports
 import EmployeeListTable from './EmployeeListTable'
 
-import { DELETE_EMPLOYEE, GET_EMPLOYEES } from '@/constants/constants'
+import { DELETE_EMPLOYEE, GET_ALL_EMPLOYEES } from '@/constants/constants'
 import { objectToQueryString } from '@/commons/utils'
 
 const EmployeeList = () => {
@@ -100,7 +100,7 @@ const EmployeeList = () => {
         }
 
         try {
-            fetch(`${GET_EMPLOYEES}?${objectToQueryString(seachParams)}`, authHeaders)
+            fetch(`${GET_ALL_EMPLOYEES}?${objectToQueryString(seachParams)}`, authHeaders)
                 .then(res => {
                     if (res.ok && [200, 201].includes(res.status)) {
                         return res.json()

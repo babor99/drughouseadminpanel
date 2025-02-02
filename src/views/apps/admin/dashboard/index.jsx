@@ -78,10 +78,26 @@ const AdminDashboard = () => {
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={2}>
         <CardStatVertical
-          title='Districts'
+          title='States'
 
           // subtitle='Last Week'
           stats={dashboardData?.total_states_count || 'n/a'}
+          avatarColor='primary'
+          avatarIcon='tabler-location'
+          avatarSkin='light'
+          avatarSize={44}
+
+          // chipText='from establishment'
+          chipColor='primary'
+          chipVariant='tonal'
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={4} lg={2}>
+        <CardStatVertical
+          title='Districts'
+
+          // subtitle='Last Week'
+          stats={dashboardData?.total_districts_count || 'n/a'}
           avatarColor='primary'
           avatarIcon='tabler-location'
           avatarSkin='light'

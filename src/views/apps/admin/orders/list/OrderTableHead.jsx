@@ -14,52 +14,73 @@ const rows = [
         sort: false
     },
     {
-        id: 'logo',
+        id: 'order_no',
         align: 'left',
         disablePadding: false,
-        label: 'Logo',
+        label: 'Order No.',
         sort: true
     },
     {
-        id: 'name',
+        id: 'status',
         align: 'left',
         disablePadding: false,
-        label: 'Name',
+        label: 'Order Status',
         sort: true
     },
     {
-        id: 'year_started',
+        id: 'user',
         align: 'left',
         disablePadding: false,
-        label: 'Year Started',
+        label: 'Customer',
         sort: true
     },
     {
-        id: 'state',
+        id: 'customer_name',
         align: 'left',
         disablePadding: false,
-        label: 'State',
+        label: 'Customer Name',
         sort: true
     },
     {
-        id: 'region',
+        id: 'customer_phone',
         align: 'left',
         disablePadding: false,
-        label: 'District',
+        label: 'Phone',
         sort: true
     },
     {
-        id: 'address',
+        id: 'net_amount',
         align: 'left',
         disablePadding: false,
-        label: 'Address',
+        label: 'Subtotal',
+        sort: true
+    },
+    {
+        id: 'grand_total',
+        align: 'left',
+        disablePadding: false,
+        label: 'Total',
+        sort: true
+    },
+    {
+        id: 'payment_method',
+        align: 'left',
+        disablePadding: false,
+        label: 'Payment Method',
+        sort: true
+    },
+    {
+        id: 'branch',
+        align: 'left',
+        disablePadding: false,
+        label: 'Branch',
         sort: true
     },
     {
         id: 'created_at',
         align: 'left',
         disablePadding: false,
-        label: 'Created At',
+        label: 'Order Date',
         sort: true
     },
     {
