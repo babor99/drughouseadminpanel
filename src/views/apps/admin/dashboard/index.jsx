@@ -59,7 +59,7 @@ const AdminDashboard = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} sm={6} md={4} lg={2}>
-        <Link href={getLocalizedUrl(`/apps/admin/low_stock_products`, locale)}>
+        <Link href={getLocalizedUrl(`/apps/admin/low-stock-products`, locale)}>
           <CardStatVertical
             title='Low Stock Products'
 

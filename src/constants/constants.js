@@ -102,6 +102,14 @@ export const CREATE_STATE = `${BASE_URL}/state/api/v1/state/create/`
 export const UPDATE_STATE = `${BASE_URL}/state/api/v1/state/update/`
 export const DELETE_STATE = `${BASE_URL}/state/api/v1/state/delete/`
 
+// DISTRICT
+export const GET_DISTRICTS_WP = `${BASE_URL}/district/api/v1/district/wp/all/`
+export const GET_DISTRICTS = `${BASE_URL}/district/api/v1/district/all/`
+export const GET_DISTRICT_BY_ID = `${BASE_URL}/district/api/v1/district/`
+export const CREATE_DISTRICT = `${BASE_URL}/district/api/v1/district/create/`
+export const UPDATE_DISTRICT = `${BASE_URL}/district/api/v1/district/update/`
+export const DELETE_DISTRICT = `${BASE_URL}/district/api/v1/district/delete/`
+
 // CITY
 export const GET_CITYS_WP = `${BASE_URL}/city/api/v1/city/wp/all/`
 export const GET_CITYS = `${BASE_URL}/city/api/v1/city/all/`
@@ -142,13 +150,21 @@ export const CREATE_MANUFACTURER = `${BASE_URL}/manufacturer/api/v1/manufacturer
 export const UPDATE_MANUFACTURER = `${BASE_URL}/manufacturer/api/v1/manufacturer/update/`
 export const DELETE_MANUFACTURER = `${BASE_URL}/manufacturer/api/v1/manufacturer/delete/`
 
-// CATEGORY
-export const GET_CATEGORYS_WP = `${BASE_URL}/category/api/v1/category/wp/all/`
-export const GET_CATEGORYS = `${BASE_URL}/category/api/v1/category/all/`
-export const GET_CATEGORY_BY_ID = `${BASE_URL}/category/api/v1/category/`
-export const CREATE_CATEGORY = `${BASE_URL}/category/api/v1/category/create/`
-export const UPDATE_CATEGORY = `${BASE_URL}/category/api/v1/category/update/`
-export const DELETE_CATEGORY = `${BASE_URL}/category/api/v1/category/delete/`
+// PRODUCT_CATEGORY
+export const GET_PRODUCT_CATEGORYS_WP = `${BASE_URL}/category/api/v1/category/wp/all/`
+export const GET_PRODUCT_CATEGORYS = `${BASE_URL}/category/api/v1/category/all/`
+export const GET_PRODUCT_CATEGORY_BY_ID = `${BASE_URL}/category/api/v1/category/`
+export const CREATE_PRODUCT_CATEGORY = `${BASE_URL}/category/api/v1/category/create/`
+export const UPDATE_PRODUCT_CATEGORY = `${BASE_URL}/category/api/v1/category/update/`
+export const DELETE_PRODUCT_CATEGORY = `${BASE_URL}/category/api/v1/category/delete/`
+
+// PRODUCT_TYPE
+export const GET_PRODUCT_TYPES_WP = `${BASE_URL}/product_type/api/v1/product_type/wp/all/`
+export const GET_PRODUCT_TYPES = `${BASE_URL}/product_type/api/v1/product_type/all/`
+export const GET_PRODUCT_TYPE_BY_ID = `${BASE_URL}/product_type/api/v1/product_type/`
+export const CREATE_PRODUCT_TYPE = `${BASE_URL}/product_type/api/v1/product_type/create/`
+export const UPDATE_PRODUCT_TYPE = `${BASE_URL}/product_type/api/v1/product_type/update/`
+export const DELETE_PRODUCT_TYPE = `${BASE_URL}/product_type/api/v1/product_type/delete/`
 
 // ATTRIBUTE
 export const GET_ATTRIBUTES_WP = `${BASE_URL}/attribute/api/v1/attribute/wp/all/`
@@ -254,6 +270,14 @@ export const GET_ORDER_STATUS_BY_ID = `${BASE_URL}/order_status/api/v1/order_sta
 export const CREATE_ORDER_STATUS = `${BASE_URL}/order_status/api/v1/order_status/create/`
 export const UPDATE_ORDER_STATUS = `${BASE_URL}/order_status/api/v1/order_status/update/`
 export const DELETE_ORDER_STATUS = `${BASE_URL}/order_status/api/v1/order_status/delete/`
+
+// DISCOUNT_TYPE
+export const GET_DISCOUNT_TYPES_WP = `${BASE_URL}/discount_type/api/v1/discount_type/wp/all/`
+export const GET_DISCOUNT_TYPES = `${BASE_URL}/discount_type/api/v1/discount_type/all/`
+export const GET_DISCOUNT_TYPE_BY_ID = `${BASE_URL}/discount_type/api/v1/discount_type/`
+export const CREATE_DISCOUNT_TYPE = `${BASE_URL}/discount_type/api/v1/discount_type/create/`
+export const UPDATE_DISCOUNT_TYPE = `${BASE_URL}/discount_type/api/v1/discount_type/update/`
+export const DELETE_DISCOUNT_TYPE = `${BASE_URL}/discount_type/api/v1/discount_type/delete/`
 
 // ORDER
 export const GET_ORDERS_WP = `${BASE_URL}/order/api/v1/order/wp/all/`

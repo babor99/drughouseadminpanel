@@ -7,7 +7,12 @@ import {
   GET_USER_PERMISSION,
   GET_MENU_ITEMS_WP,
   GET_MENU_ITEMS_ALL_NESTED,
+  GET_COUNTRYS_WP,
   GET_STATES_WP,
+  GET_DISTRICTS_WP,
+  GET_CITYS_WP,
+  GET_AREAS_WP,
+  GET_BRANCHS_WP,
   GET_REGIONS_WP,
   GET_SCHOOLS_WP,
   GET_SECTIONS_WP2,
@@ -115,6 +120,22 @@ export const getAllMenuNestedWp = (accessToken, csrfToken) => dispatch => {
     .catch(() => { })
 }
 
+export const getCountrysWP = (accessToken, csrfToken) => dispatch => {
+  const authHeaders = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'X-CSRFToken': csrfToken
+    }
+  }
+
+  fetch(GET_COUNTRYS_WP, authHeaders)
+    .then(response => response.json())
+    .then(data => dispatch(setCountrys(data.countries)))
+    .catch(() => { })
+}
+
 export const getStatesWP = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
@@ -128,6 +149,70 @@ export const getStatesWP = (accessToken, csrfToken) => dispatch => {
   fetch(GET_STATES_WP, authHeaders)
     .then(response => response.json())
     .then(data => dispatch(setStates(data.states)))
+    .catch(() => { })
+}
+
+export const getDistrictsWP = (accessToken, csrfToken) => dispatch => {
+  const authHeaders = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'X-CSRFToken': csrfToken
+    }
+  }
+
+  fetch(GET_DISTRICTS_WP, authHeaders)
+    .then(response => response.json())
+    .then(data => dispatch(setDistricts(data.districts)))
+    .catch(() => { })
+}
+
+export const getCitysWP = (accessToken, csrfToken) => dispatch => {
+  const authHeaders = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'X-CSRFToken': csrfToken
+    }
+  }
+
+  fetch(GET_CITYS_WP, authHeaders)
+    .then(response => response.json())
+    .then(data => dispatch(setCitys(data.cities)))
+    .catch(() => { })
+}
+
+export const getAreasWP = (accessToken, csrfToken) => dispatch => {
+  const authHeaders = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'X-CSRFToken': csrfToken
+    }
+  }
+
+  fetch(GET_AREAS_WP, authHeaders)
+    .then(response => response.json())
+    .then(data => dispatch(setAreas(data.areas)))
+    .catch(() => { })
+}
+
+export const getBranchsWP = (accessToken, csrfToken) => dispatch => {
+  const authHeaders = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'X-CSRFToken': csrfToken
+    }
+  }
+
+  fetch(GET_BRANCHS_WP, authHeaders)
+    .then(response => response.json())
+    .then(data => dispatch(setBranchs(data.branches)))
     .catch(() => { })
 }
 
@@ -221,7 +306,12 @@ const dataSlice = createSlice({
     userPermissions: [],
     parentMenus: [],
     nestedMenus: [],
+    countrys: [],
     states: [],
+    districts: [],
+    citys: [],
+    areas: [],
+    branchs: [],
     regions: [],
     schools: [],
     sections2: [],
@@ -251,8 +341,23 @@ const dataSlice = createSlice({
     setAllMenuNested: (state, action) => {
       state.nestedMenus = action.payload ? action.payload : []
     },
+    setCountrys: (state, action) => {
+      state.countrys = action.payload ? action.payload : []
+    },
     setStates: (state, action) => {
       state.states = action.payload ? action.payload : []
+    },
+    setDistricts: (state, action) => {
+      state.districts = action.payload ? action.payload : []
+    },
+    setCitys: (state, action) => {
+      state.citys = action.payload ? action.payload : []
+    },
+    setAreas: (state, action) => {
+      state.areas = action.payload ? action.payload : []
+    },
+    setBranchs: (state, action) => {
+      state.branchs = action.payload ? action.payload : []
     },
     setRegions: (state, action) => {
       state.regions = action.payload ? action.payload : []
@@ -279,7 +384,12 @@ const {
   setUserPermissions,
   setParentMenus,
   setAllMenuNested,
+  setCountrys,
   setStates,
+  setDistricts,
+  setCitys,
+  setAreas,
+  setBranchs,
   setRegions,
   setSchools,
   setSections2,

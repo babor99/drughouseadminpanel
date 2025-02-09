@@ -51,22 +51,13 @@ import {
   getUserPermissionsWP,
   getAllMenuNestedWp,
   getParentMenus,
+  getCountrysWP,
   getStatesWP,
-  getRegionsWP,
-  getSchoolsWP,
-  getSectionsWP2,
-  getCourseCategorysWP,
+  getDistrictsWP,
+  getCitysWP,
+  getAreasWP,
+  getBranchsWP,
 } from '@/redux-store/slices/data'
-import {
-  getStudentEnrollmentsWP,
-  getStudentLectureProgressesWP,
-  getEventEnrollmentsByStudent,
-  getCompetitionEnrollmentsByStudent
-} from '@/redux-store/slices/student'
-
-import { getRpmSchoolsWP, getRpmRegionsWP, getRpmSectionsWP } from '@/redux-store/slices/rpm'
-import { getTeacherSchoolsWP, getTeacherSectionsWP } from '@/redux-store/slices/teacher'
-import { getInstructorCoursesWP } from '@/redux-store/slices/instructor'
 
 import { setLoginSuccess, setLoginFailed } from '@/redux-store/slices/authentication'
 import { setUser } from '@/redux-store/slices/user'
@@ -195,41 +186,19 @@ const Login = ({ mode }) => {
 
             // This is For Dynamic Sidebar
             // dispatch(setMenuItem(data?.access))
+            // dispatch(getUsersWP(data?.access, data?.csrftoken))
+            // dispatch(getRolesWP(data?.access, data?.csrftoken))
+            // dispatch(getPermissionsWP(data?.access, data?.csrftoken))
+            // dispatch(getParentMenus(data?.access, data?.csrftoken))
+            // dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
+            // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
 
-            dispatch(getUsersWP(data?.access, data?.csrftoken))
-            dispatch(getRolesWP(data?.access, data?.csrftoken))
-            dispatch(getPermissionsWP(data?.access, data?.csrftoken))
-            dispatch(getParentMenus(data?.access, data?.csrftoken))
-            dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
-            dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
+            dispatch(getCountrysWP(data?.access, data?.csrftoken))
             dispatch(getStatesWP(data?.access, data?.csrftoken))
-            dispatch(getRegionsWP(data?.access, data?.csrftoken))
-            dispatch(getSchoolsWP(data?.access, data?.csrftoken))
-            dispatch(getSectionsWP2(data?.access, data?.csrftoken))
-
-            dispatch(getCourseCategorysWP(data?.access, data?.csrftoken))
-
-            if (data?.is_rpm) {
-              dispatch(getRpmRegionsWP(data?.access, data?.csrftoken))
-              dispatch(getRpmSchoolsWP(data?.access, data?.csrftoken))
-              dispatch(getRpmSectionsWP(data?.access, data?.csrftoken))
-            }
-
-            if (data?.is_teacher) {
-              dispatch(getTeacherSchoolsWP(data?.access, data?.csrftoken))
-              dispatch(getTeacherSectionsWP(data?.access, data?.csrftoken))
-            }
-
-            if (data?.is_instructor) {
-              dispatch(getInstructorCoursesWP(data?.access, data?.csrftoken))
-            }
-
-            if (data?.is_student) {
-              dispatch(getStudentEnrollmentsWP(data?.access, data?.csrftoken))
-              dispatch(getStudentLectureProgressesWP(data?.access, data?.csrftoken))
-              dispatch(getEventEnrollmentsByStudent(data?.access, data?.csrftoken))
-              dispatch(getCompetitionEnrollmentsByStudent(data?.access, data?.csrftoken))
-            }
+            dispatch(getDistrictsWP(data?.access, data?.csrftoken))
+            dispatch(getCitysWP(data?.access, data?.csrftoken))
+            dispatch(getAreasWP(data?.access, data?.csrftoken))
+            dispatch(getBranchsWP(data?.access, data?.csrftoken))
 
             // router.replace(getLocalizedUrl(redirectURL, locale))
             router.push(getLocalizedUrl('/apps/dashboard', locale))
@@ -280,41 +249,19 @@ const Login = ({ mode }) => {
 
             // This is For Dynamic Sidebar
             // dispatch(setMenuItem(data?.access))
+            // dispatch(getUsersWP(data?.access, data?.csrftoken))
+            // dispatch(getRolesWP(data?.access, data?.csrftoken))
+            // dispatch(getPermissionsWP(data?.access, data?.csrftoken))
+            // dispatch(getParentMenus(data?.access, data?.csrftoken))
+            // dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
+            // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
 
-            dispatch(getUsersWP(data?.access, data?.csrftoken))
-            dispatch(getRolesWP(data?.access, data?.csrftoken))
-            dispatch(getPermissionsWP(data?.access, data?.csrftoken))
-            dispatch(getParentMenus(data?.access, data?.csrftoken))
-            dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
-            dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
+            dispatch(getCountrysWP(data?.access, data?.csrftoken))
             dispatch(getStatesWP(data?.access, data?.csrftoken))
-            dispatch(getRegionsWP(data?.access, data?.csrftoken))
-            dispatch(getSchoolsWP(data?.access, data?.csrftoken))
-            dispatch(getSectionsWP2(data?.access, data?.csrftoken))
-
-            dispatch(getCourseCategorysWP(data?.access, data?.csrftoken))
-
-            if (data?.is_rpm) {
-              dispatch(getRpmRegionsWP(data?.access, data?.csrftoken))
-              dispatch(getRpmSchoolsWP(data?.access, data?.csrftoken))
-              dispatch(getRpmSectionsWP(data?.access, data?.csrftoken))
-            }
-
-            if (data?.is_teacher) {
-              dispatch(getTeacherSchoolsWP(data?.access, data?.csrftoken))
-              dispatch(getTeacherSectionsWP(data?.access, data?.csrftoken))
-            }
-
-            if (data?.is_instructor) {
-              dispatch(getInstructorCoursesWP(data?.access, data?.csrftoken))
-            }
-
-            if (data?.is_student) {
-              dispatch(getStudentEnrollmentsWP(data?.access, data?.csrftoken))
-              dispatch(getStudentLectureProgressesWP(data?.access, data?.csrftoken))
-              dispatch(getEventEnrollmentsByStudent(data?.access, data?.csrftoken))
-              dispatch(getCompetitionEnrollmentsByStudent(data?.access, data?.csrftoken))
-            }
+            dispatch(getDistrictsWP(data?.access, data?.csrftoken))
+            dispatch(getCitysWP(data?.access, data?.csrftoken))
+            dispatch(getAreasWP(data?.access, data?.csrftoken))
+            dispatch(getBranchsWP(data?.access, data?.csrftoken))
 
             router.push(getLocalizedUrl('/apps/dashboard', locale))
           } else {

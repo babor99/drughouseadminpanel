@@ -386,7 +386,6 @@ const RPMInformation = ({ isSuspended }) => {
               {image && !previewImage && (
                 <img src={`${image}`} style={{ width: '100px', height: '100px' }} alt="Not found" />
               )}
-
               {
                 previewImage && (
                   <img src={previewImage} style={{ width: '100px', height: '100px' }} alt="Not found" />
