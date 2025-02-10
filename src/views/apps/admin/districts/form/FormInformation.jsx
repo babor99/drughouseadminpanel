@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Controller, useFormContext } from 'react-hook-form'
 
@@ -9,8 +8,6 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import Switch from '@mui/material/Switch'
 import Autocomplete from '@mui/material/Autocomplete'
 
 // Components Imports
@@ -25,7 +22,7 @@ const DistrictInformation = () => {
 
   return (
     <Card>
-      <CardHeader title='Type Information' />
+      <CardHeader title='District Information' />
       <CardContent>
         <Grid container spacing={6} className='mbe-6'>
           <Grid item xs={12}>
@@ -39,8 +36,8 @@ const DistrictInformation = () => {
                     fullWidth
                     id="name"
                     variant="outlined"
-                    label="District name"
-                    placeholder="John"
+                    label="District Name"
+                    placeholder="Dhaka"
                     error={!!errors.name || !field.value}
                     helperText={errors?.name?.message}
                     InputLabelProps={field.value && { shrink: true }}
@@ -72,6 +69,7 @@ const DistrictInformation = () => {
                           placeholder="Select state"
                           variant="outlined"
                           size="small"
+                          label="State"
                           InputLabelProps={{
                             shrink: true
                           }}

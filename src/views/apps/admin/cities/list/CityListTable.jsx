@@ -26,24 +26,23 @@ import TableCell from '@mui/material/TableCell'
 import Pagination from '@mui/material/Pagination'
 
 // Component Imports
-import ProductTypeTableHead from './ProductTypeTableHead'
+import CityTableHead from './CityTableHead'
 import CustomTextField from '@core/components/mui/TextField'
 import OptionMenu from '@core/components/option-menu'
 
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 import { rowsPerPage } from '@/commons/dropdownOptions'
-import { BASE_URL } from '@/constants/constants'
 
 const ListTable = (props) => {
   const {
-    producttypeData,
+    cityData,
     loading,
     totalPages,
     params,
     setParams,
-    getAllProductType,
-    deleteProductType,
+    getAllCity,
+    deleteCity,
     selected,
     order,
     handleRequestSort,
@@ -62,7 +61,7 @@ const ListTable = (props) => {
   return (
     <>
       <Card>
-        <CardHeader title='Product Type List' />
+        <CardHeader title='City List' />
         {/* header buttons */}
         <div className='flex flex-wrap justify-between gap-4 p-6'>
           <CustomTextField
@@ -71,13 +70,13 @@ const ListTable = (props) => {
             defaultValue={params?.keyword}
             onChange={e => {
               if (e.target.value.length === 0) {
-                getAllProductType({ ...params, keyword: '' })
+                getAllCity({ ...params, keyword: '' })
                 setParams({ ...params, keyword: '' })
               }
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && e.target.value) {
-                getAllProductType({ ...params, keyword: e.target.value })
+                getAllCity({ ...params, keyword: e.target.value })
                 setParams({ ...params, keyword: e.target.value })
               }
             }}
@@ -87,10 +86,10 @@ const ListTable = (props) => {
               variant='contained'
               component={Link}
               className='max-sm:is-full is-auto'
-              href={getLocalizedUrl('/apps/admin/product-types/new', locale)}
+              href={getLocalizedUrl('/apps/admin/cities/new', locale)}
               startIcon={<i className='tabler-plus' />}
             >
-              New Product-Type
+              New City
             </Button>
           </div>
         </div>
@@ -99,7 +98,7 @@ const ListTable = (props) => {
         <div className='overflow-x-auto'>
           {
             loading ? '' : (
-              producttypeData?.length > 0 ? (
+              cityData?.length > 0 ? (
                 <div id="downloadPage">
                   <Table
                     stickyHeader
@@ -108,17 +107,17 @@ const ListTable = (props) => {
                     ref={componentRef}
                     id="table-to-xls"
                   >
-                    <ProductTypeTableHead
+                    <CityTableHead
                       order={order}
                       selectedRpmIds={selected}
-                      rowCount={producttypeData.length}
+                      rowCount={cityData.length}
                       onSelectAllClick={handleSelectAllClick}
                       onRequestSort={handleRequestSort}
                       onMenuItemClick={handleDeselect}
                     />
                     <TableBody>
                       {_.orderBy(
-                        producttypeData,
+                        cityData,
                         [
                           o => {
                             switch (order.id) {
@@ -162,14 +161,14 @@ const ListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                <Link href={getLocalizedUrl(`/apps/admin/product-types/${n.id}`, locale)}>{n.name}</Link>
+                                <Link href={getLocalizedUrl(`/apps/admin/cities/${n.id}`, locale)}>{n.name}</Link>
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
                                 component="th"
                                 scope="row"
                               >
-                                {n.is_active ? 'Yes' : 'No'}
+                                {n.district?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
@@ -178,7 +177,7 @@ const ListTable = (props) => {
                               >
                                 <div className='flex items-center'>
                                   <Link
-                                    href={getLocalizedUrl(`/apps/admin/product-types/${n.id}`, locale)}
+                                    href={getLocalizedUrl(`/apps/admin/cities/${n.id}`, locale)}
                                   >
                                     <IconButton>
                                       <i className='tabler-edit text-textSecondary' />
@@ -191,7 +190,7 @@ const ListTable = (props) => {
                                       {
                                         text: 'Delete',
                                         icon: 'tabler-trash',
-                                        menuItemProps: { onClick: () => deleteProductType(n.id) }
+                                        menuItemProps: { onClick: () => deleteCity(n.id) }
                                       },
                                     ]}
                                   />

@@ -93,33 +93,17 @@ const HorizontalMenu = ({ dictionary }) => {
                 <MenuItem href={`/${locale}/apps/admin/products`} icon={<i className='tabler-brand-producthunt' />}>
                   Products
                 </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/employees`} icon={<i className='tabler-users' />}>
-                  Employees
-                </MenuItem>
-                {/* <MenuItem href={`/${locale}/apps/admin/rpms`} icon={<i className='tabler-book-2' />}>
-                  RPMs
-                </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/teachers`} icon={<i className='tabler-user' />}>
-                  Teachers
-                </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/instructors`} icon={<i className='tabler-user' />}>
-                  Instructors
-                </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/students`} icon={<i className='tabler-users' />}>
-                  Students
-                </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/schools`} icon={<i className='tabler-school' />}>
-                  Schools
-                </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/events`} icon={<i className='tabler-calendar-event' />}>
-                  Events
-                </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/competitions`} icon={<i className='tabler-calendar-event' />}>
-                  Competitions
-                </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/courses`} icon={<i className='tabler-school' />}>
-                  Courses & Micro-creds
-                </MenuItem> */}
+                <SubMenu
+                  label="Access Control"
+                  title="Access Control"
+                  icon={<i className='tabler-lock-access' />}
+
+                // suffix={<CustomChip label='1' size='small' color='error' round='true' />}
+                >
+                  <MenuItem href={`/${locale}/apps/admin/employees`} icon={<i className='tabler-users' />}>Employees</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/roles`} icon={<i className='tabler-lock-cog' />}>Roles</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/role-menus`} icon={<i className='tabler-lock-code' />}>Role Menus</MenuItem>
+                </SubMenu>
                 <SubMenu
                   label="Settings"
                   title="Settings"
@@ -127,100 +111,23 @@ const HorizontalMenu = ({ dictionary }) => {
 
                 // suffix={<CustomChip label='1' size='small' color='error' round='true' />}
                 >
-                  <MenuItem href={`/${locale}/apps/admin/product-categories`}>Product Categories</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/product-types`}>Product Types</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/manufacturers`}>Manufacturers</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/payment-methods`}>Payment Methods</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/order-statuses`}>Order Statuses</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/discount-types`}>Discount Types</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/countries`}>Countries</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/states`}>States</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/districts`}>Districts</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/cities`}>Cities</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/areas`}>Areas</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/branches`}>Branches</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/product-categories`} icon={<i className='tabler-category' />}>Product Categories</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/product-types`} icon={<i className='tabler-category-2' />}>Product Types</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/manufacturers`} icon={<i className='tabler-users' />}>Manufacturers</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/payment-methods`} icon={<i className='tabler-brand-visa' />}>Payment Methods</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/order-statuses`} icon={<i className='tabler-status-change' />}>Order Statuses</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/discount-types`} icon={<i className='tabler-discount' />}>Discount Types</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/countries`} icon={<i className='tabler-map-pin' />}>Countries</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/states`} icon={<i className='tabler-map-pins' />}>States</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/districts`} icon={<i className='tabler-map-pins' />}>Districts</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/cities`} icon={<i className='tabler-map-pins' />}>Cities</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/areas`} icon={<i className='tabler-map-pins' />}>Areas</MenuItem>
+                  <MenuItem href={`/${locale}/apps/admin/branches`} icon={<i className='tabler-git-branch' />}>Branches</MenuItem>
                 </SubMenu>
               </>
             )
             :
-            isRPM ?
-              (
-                <>
-                  <MenuItem href={`/${locale}/apps/rpm/schools`} icon={<i className='tabler-school' />}>
-                    Schools
-                  </MenuItem>
-                  <MenuItem href={`/${locale}/apps/rpm/teachers`} icon={<i className='tabler-users' />}>
-                    Teachers
-                  </MenuItem>
-                  <MenuItem href={`/${locale}/apps/rpm/students`} icon={<i className='tabler-users' />}>
-                    Students
-                  </MenuItem>
-                  <MenuItem href={`/${locale}/apps/rpm/events`} icon={<i className='tabler-calendar-event' />}>
-                    Events
-                  </MenuItem>
-                  <MenuItem href={`/${locale}/apps/rpm/competitions`} icon={<i className='tabler-calendar-event' />}>
-                    Competitions
-                  </MenuItem>
-                  <SubMenu
-                    label="Marketing Materials"
-                    title="Marketing Materials"
-                    icon={<i className='tabler-atom' />}
-
-                  // suffix={<CustomChip label='5' size='small' color='error' round='true' />}
-                  >
-                    <MenuItem target="_blank" href="https://drive.google.com/drive/folders/1YFGJ39jZBf_mkalsZWQ-OP5SFqwjQX6H?usp=sharing">All Resources</MenuItem>
-                    <MenuItem target="_blank" href="https://drive.google.com/drive/folders/1gVMeQzDukm10jHKlXucxLbngBDZSbKKQ?usp=drive_link">Theme Logo</MenuItem>
-                    <MenuItem target="_blank" href="https://drive.google.com/drive/folders/1YOyTc-OfAV_gwgMzLnuXpio5f26uzuCE?usp=drive_link">Posters</MenuItem>
-                  </SubMenu>
-                </>
-              )
-              :
-              isTeacher ?
-                (
-                  <>
-                    <MenuItem href={`/${locale}/apps/teacher/schools`} icon={<i className='tabler-school' />}>
-                      Schools
-                    </MenuItem>
-                    <MenuItem href={`/${locale}/apps/teacher/students`} icon={<i className='tabler-users' />}>
-                      Students
-                    </MenuItem>
-                    <MenuItem href={`/${locale}/apps/teacher/events`} icon={<i className='tabler-calendar-event' />}>
-                      Event Registrations
-                    </MenuItem>
-                    <MenuItem href={`/${locale}/apps/teacher/competitions`} icon={<i className='tabler-calendar-event' />}>
-                      Competition Registrations
-                    </MenuItem>
-                  </>
-                )
-                :
-                isInstructor ?
-                  (
-                    <>
-                      <MenuItem href={`/${locale}/apps/instructor/courses`} icon={<i className='tabler-book' />}>
-                        Course Manager
-                      </MenuItem>
-                    </>
-                  )
-                  :
-                  isStudent ?
-                    (
-                      <>
-                        <MenuItem href={`/${locale}/apps/student/courses`} icon={<i className='tabler-school' />}>
-                          Courses
-                        </MenuItem>
-                        <MenuItem href={`/${locale}/apps/student/my-courses`} icon={<i className='tabler-book' />}>
-                          My Courses
-                        </MenuItem>
-                        <MenuItem href={`/${locale}/apps/student/events`} icon={<i className='tabler-calendar-event' />}>
-                          Events
-                        </MenuItem>
-                        <MenuItem href={`/${locale}/apps/student/competitions`} icon={<i className='tabler-calendar-event' />}>
-                          Competitions
-                        </MenuItem>
-                      </>
-                    )
-                    :
-                    ''
+            ''
         }
       </Menu>
       {/* <Menu

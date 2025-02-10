@@ -15,18 +15,18 @@ import Grid from '@mui/material/Grid'
 
 // Component Imports
 import FormHeader from './FormHeader'
-import ProductTypeInformation from './FormInformation'
+import BranchInformation from './FormInformation'
 
 import { isNumber } from '@/commons/utils';
 import { getLocalizedUrl } from '@/utils/i18n';
-import { GET_PRODUCT_TYPE_BY_ID } from '@/constants/constants';
+import { GET_BRANCH_BY_ID } from '@/constants/constants';
 
-const ProductTypeForm = () => {
-    const { productTypeId, lang: locale } = useParams()
+const BranchForm = () => {
+    const { branchId, lang: locale } = useParams()
 
     const accessToken = useSelector(state => state.authentication.accessToken)
     const csrfToken = useSelector(state => state.authentication.csrfToken)
-    const [productType, setProductType] = useState({})
+    const [branch, setBranch] = useState({})
 
     const router = useRouter()
 
@@ -45,23 +45,23 @@ const ProductTypeForm = () => {
     const { reset, watch } = methods;
 
     useEffect(() => {
-        if (productType && Object.keys(productType).length) {
-            reset({ ...productType })
+        if (branch && Object.keys(branch).length) {
+            reset({ ...branch })
         }
-    }, [productType])
+    }, [branch])
 
     useEffect(() => {
-        if (productTypeId !== 'new' && !isNumber(productTypeId)) {
-            router.replace(getLocalizedUrl('/apps/admin/product-types', locale))
+        if (branchId !== 'new' && !isNumber(branchId)) {
+            router.replace(getLocalizedUrl('/apps/admin/branches', locale))
         }
 
-        if (isNumber(productTypeId)) {
-            getAProductType()
+        if (isNumber(branchId)) {
+            getABranch()
         }
 
-    }, [productTypeId])
+    }, [branchId])
 
-    function getAProductType() {
+    function getABranch() {
         const authHeaders = {
             credentials: 'include',
             headers: {
@@ -72,16 +72,16 @@ const ProductTypeForm = () => {
         }
 
         try {
-            fetch(`${GET_PRODUCT_TYPE_BY_ID}${productTypeId}`, authHeaders)
+            fetch(`${GET_BRANCH_BY_ID}${branchId}`, authHeaders)
                 .then(res => {
                     if (res.ok && [200, 201].includes(res.status)) {
                         return res.json()
                     }
 
-                    throw new Error(`ProductType get failed with status code ${res.status}`)
+                    throw new Error(`Branch get failed with status code ${res.status}`)
                 })
                 .then(data => {
-                    setProductType(data)
+                    setBranch(data)
                 })
                 .catch(error => { })
         } catch (err) { }
@@ -96,7 +96,7 @@ const ProductTypeForm = () => {
                 <Grid item xs={12}>
                     <Grid container spacing={6}>
                         <Grid item xs={12}>
-                            <ProductTypeInformation />
+                            <BranchInformation />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -105,4 +105,4 @@ const ProductTypeForm = () => {
     )
 }
 
-export default ProductTypeForm
+export default BranchForm

@@ -150,7 +150,6 @@ const Login = ({ mode }) => {
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
 
   const onSubmit = async (reqData) => {
-
     try {
       fetch(LOGIN_URL, {
         method: 'POST',
@@ -179,18 +178,17 @@ const Login = ({ mode }) => {
           if (data && data?.is_authenticated) {
             const redirectURL = searchParams.get('redirectTo') ?? '/'
 
-            toast.success("Login successful!")
-
+            
             dispatch(setUser(data))
             dispatch(setLoginSuccess({ isAuthenticated: data?.is_authenticated, accessToken: data?.access, csrfToken: data?.csrftoken }))
 
             // This is For Dynamic Sidebar
-            // dispatch(setMenuItem(data?.access))
+            dispatch(getRolesWP(data?.access, data?.csrftoken))
+            dispatch(getPermissionsWP(data?.access, data?.csrftoken))
+            dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
+            
             // dispatch(getUsersWP(data?.access, data?.csrftoken))
-            // dispatch(getRolesWP(data?.access, data?.csrftoken))
-            // dispatch(getPermissionsWP(data?.access, data?.csrftoken))
             // dispatch(getParentMenus(data?.access, data?.csrftoken))
-            // dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
             // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
 
             dispatch(getCountrysWP(data?.access, data?.csrftoken))
@@ -199,14 +197,15 @@ const Login = ({ mode }) => {
             dispatch(getCitysWP(data?.access, data?.csrftoken))
             dispatch(getAreasWP(data?.access, data?.csrftoken))
             dispatch(getBranchsWP(data?.access, data?.csrftoken))
-
-            // router.replace(getLocalizedUrl(redirectURL, locale))
+            
+            toast.success("Login successful!")
             router.push(getLocalizedUrl('/apps/dashboard', locale))
           }
         })
         .catch(error => {
           dispatch(setLoginFailed())
           setErrorState(error)
+          toast.error("Login failed!!")
         })
     } catch (err) {
       toast.error("Login failed!!")
@@ -241,19 +240,17 @@ const Login = ({ mode }) => {
         .then(resData => {
           const data = resData?.data
 
-          // 
-
           if (data?.is_authenticated) {
             dispatch(setUser(data))
             dispatch(setLoginSuccess({ isAuthenticated: data?.is_authenticated, accessToken: data?.access, csrfToken: data?.csrftoken }))
 
             // This is For Dynamic Sidebar
-            // dispatch(setMenuItem(data?.access))
+            dispatch(getRolesWP(data?.access, data?.csrftoken))
+            dispatch(getPermissionsWP(data?.access, data?.csrftoken))
+            dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
+            
             // dispatch(getUsersWP(data?.access, data?.csrftoken))
-            // dispatch(getRolesWP(data?.access, data?.csrftoken))
-            // dispatch(getPermissionsWP(data?.access, data?.csrftoken))
             // dispatch(getParentMenus(data?.access, data?.csrftoken))
-            // dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
             // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
 
             dispatch(getCountrysWP(data?.access, data?.csrftoken))

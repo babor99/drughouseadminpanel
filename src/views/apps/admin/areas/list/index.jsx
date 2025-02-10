@@ -10,16 +10,16 @@ import { toast } from 'react-toastify'
 import Grid from '@mui/material/Grid'
 
 // Component Imports
-import ProductTypeListTable from './ProductTypeListTable'
+import AreaListTable from './AreaListTable'
 
-import { GET_PRODUCT_TYPES, DELETE_PRODUCT_TYPE } from '@/constants/constants'
+import { GET_AREAS, DELETE_AREA } from '@/constants/constants'
 import { objectToQueryString } from '@/commons/utils'
 
-const ProductTypeList = () => {
+const AreaList = () => {
     const accessToken = useSelector(state => state.authentication.accessToken)
     const csrfToken = useSelector(state => state.authentication.csrfToken)
 
-    const [producttypeData, setProductTypeData] = useState([])
+    const [areaData, setAreaData] = useState([])
     const [selected, setSelected] = useState([])
     const [loading, setLoading] = useState(false)
     const [totalPages, setTotalPages] = useState(0)
@@ -51,7 +51,7 @@ const ProductTypeList = () => {
 
     function handleSelectAllClick(event) {
         if (event.target.checked) {
-            setSelected(producttypeData.map(n => n.id));
+            setSelected(areaData.map(n => n.id));
 
             return;
         }
@@ -81,10 +81,10 @@ const ProductTypeList = () => {
     }
 
     useEffect(() => {
-        getAllProductType(params)
+        getAllArea(params)
     }, [params.page, params.size])
 
-    function getAllProductType(seachParams) {
+    function getAllArea(seachParams) {
         setLoading(true)
 
         const authHeaders = {
@@ -97,16 +97,16 @@ const ProductTypeList = () => {
         }
 
         try {
-            fetch(`${GET_PRODUCT_TYPES}?${objectToQueryString(seachParams)}`, authHeaders)
+            fetch(`${GET_AREAS}?${objectToQueryString(seachParams)}`, authHeaders)
                 .then(res => {
                     if (res.ok && [200, 201].includes(res.status)) {
                         return res.json()
                     }
 
-                    throw new Error(`ProductType get failed with status code ${res.status}`)
+                    throw new Error(`Area get failed with status code ${res.status}`)
                 })
                 .then(data => {
-                    setProductTypeData(data?.product_types || [])
+                    setAreaData(data?.areas || [])
                     setTotalPages(data?.total_pages)
                     setLoading(false)
                 })
@@ -118,7 +118,7 @@ const ProductTypeList = () => {
         }
     }
 
-    const deleteProductType = (producttypeId) => {
+    const deleteArea = (areaId) => {
         const authHeaders = {
             method: 'DELETE',
             credentials: 'include',
@@ -130,37 +130,37 @@ const ProductTypeList = () => {
         }
 
         try {
-            fetch(`${DELETE_PRODUCT_TYPE}${producttypeId}`, authHeaders)
+            fetch(`${DELETE_AREA}${areaId}`, authHeaders)
                 .then(res => {
                     if (res.ok && [200, 201].includes(res.status)) {
                         return res.json()
                     }
 
-                    throw new Error(`ProductType delete failed with status code ${res.status}`)
+                    throw new Error(`Area delete failed with status code ${res.status}`)
                 })
                 .then(data => {
-                    getAllProductType({ ...params })
-                    toast.success("Success! ProductType deleted successfully!")
+                    getAllArea({ ...params })
+                    toast.success("Success! Area deleted successfully!")
                 })
                 .catch(error => {
-                    toast.error("Failed! ProductType delete failed!")
+                    toast.error("Failed! Area delete failed!")
                 })
         } catch (err) {
-            toast.error("Failed! ProductType delete failed!")
+            toast.error("Failed! Area delete failed!")
         }
     }
 
     return (
         <Grid container spacing={6}>
             <Grid item xs={12}>
-                <ProductTypeListTable
-                    producttypeData={producttypeData}
+                <AreaListTable
+                    areaData={areaData}
                     loading={loading}
                     totalPages={totalPages}
                     params={params}
                     setParams={setParams}
-                    getAllProductType={getAllProductType}
-                    deleteProductType={deleteProductType}
+                    getAllArea={getAllArea}
+                    deleteArea={deleteArea}
                     selected={selected}
                     order={order}
                     handleRequestSort={handleRequestSort}
@@ -173,4 +173,4 @@ const ProductTypeList = () => {
     )
 }
 
-export default ProductTypeList
+export default AreaList

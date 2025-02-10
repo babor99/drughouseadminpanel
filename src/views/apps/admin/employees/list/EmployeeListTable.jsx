@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 
 import _ from 'lodash'
-import moment from 'moment-timezone'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
@@ -83,7 +82,7 @@ const ProductListTable = (props) => {
           <CustomTextField
             placeholder='Search'
             className='max-sm:is-full'
-            value={searchKeyword ?? ''}
+            defaultValue={params.keyword}
             onChange={e => {
               if (e.target.value.length === 0) {
                 getAllEmployee({ ...params, keyword: '' })
@@ -150,8 +149,8 @@ const ProductListTable = (props) => {
                                 return o.phone_number;
                               }
 
-                              case 'title': {
-                                return o.title;
+                              case 'role': {
+                                return o.role ? o.role?.name : '';
                               }
 
                               case 'branch': {
@@ -222,7 +221,7 @@ const ProductListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                {n.title}
+                                {n.role?.title}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"

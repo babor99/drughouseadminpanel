@@ -33,6 +33,8 @@ const EmployeeForm = () => {
     const yupObject = employeeId === 'new' ? {
         name: yup.string().required('First name is required').min(3, 'First name must be at least 3 characters'),
         email: yup.string().email('You must enter a valid email address').required('You must enter an email address'),
+        role: yup.string().required('Role is required'),
+        branch: yup.string().required('Branch is required'),
         phone_number: yup.string().required('Phone number is required'),
         password: yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
         confirm_password: yup.string().required('Confirm password is required').oneOf([yup.ref('password'), null], 'Passwords must match'),
@@ -40,6 +42,8 @@ const EmployeeForm = () => {
         {
             name: yup.string().required('First name is required').min(3, 'First name must be at least 3 characters'),
             email: yup.string().email('You must enter a valid email address').required('You must enter an email address'),
+            role: yup.string().required('Role is required'),
+            branch: yup.string().required('Branch is required'),
             phone_number: yup.string().required('Phone number is required'),
         }
 
@@ -54,7 +58,7 @@ const EmployeeForm = () => {
     const { reset, watch } = methods;
 
     useEffect(() => {
-        if (Object.keys(employee).length) {
+        if (employee && Object.keys(employee).length) {
             reset({ ...employee })
             setIsSuspended(employee?.is_suspended)
         }
@@ -62,7 +66,7 @@ const EmployeeForm = () => {
 
     useEffect(() => {
         if (employeeId !== 'new' && !isNumber(employeeId)) {
-            router.replace(getLocalizedUrl('/apps/employee', locale))
+            router.replace(getLocalizedUrl('/apps/employees', locale))
         }
 
         if (isNumber(employeeId)) {
@@ -101,6 +105,8 @@ const EmployeeForm = () => {
 
         }
     }
+
+    console.log('employee: ', employee)
 
     return (
         <FormProvider {...methods}>

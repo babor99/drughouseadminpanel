@@ -55,7 +55,7 @@ export const DELETE_PERMISSION = `${BASE_URL}/permission/api/v1/permission/delet
 // ROLE
 export const GET_ROLES_WP = `${BASE_URL}/role/api/v1/role/wp/all/`
 export const GET_ROLES = `${BASE_URL}/role/api/v1/role/all/`
-export const GET_ROLE_ID = `${BASE_URL}/role/api/v1/role/`
+export const GET_ROLE_BY_ID = `${BASE_URL}/role/api/v1/role/`
 export const CREATE_ROLE = `${BASE_URL}/role/api/v1/role/create/`
 export const UPDATE_ROLE = `${BASE_URL}/role/api/v1/role/update/`
 export const DELETE_ROLE = `${BASE_URL}/role/api/v1/role/delete/`

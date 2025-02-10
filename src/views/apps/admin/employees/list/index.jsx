@@ -28,9 +28,7 @@ const EmployeeList = () => {
         page: 1,
         size: 100,
         keyword: '',
-        state: '',
-        region: '',
-        assigned_schools: [],
+        branch: '',
     })
 
     const [order, setOrder] = useState({

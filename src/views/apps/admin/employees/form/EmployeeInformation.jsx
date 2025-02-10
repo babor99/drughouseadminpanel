@@ -1,20 +1,21 @@
 'use client'
 
-import { useState } from 'react'
-
 import { useParams } from 'next/navigation'
 
+import { useState } from 'react'
+
+import { useSelector } from 'react-redux'
 import { Controller, useFormContext } from 'react-hook-form'
 
 // MUI Imports
-import { Autocomplete, InputAdornment, IconButton, Icon } from '@mui/material'
-import Divider from '@mui/material/Divider'
+import { InputAdornment, IconButton } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Switch from '@mui/material/Switch'
+import Autocomplete from '@mui/material/Autocomplete'
 
 // Components Imports
 import CustomTextField from '@core/components/mui/TextField'
@@ -25,6 +26,9 @@ import { isNumber } from '@/commons/utils';
 import { BASE_URL } from '@/constants/constants'
 
 const EmployeeInformation = ({ isSuspended }) => {
+  const roleOptions = useSelector(state => state.data.roles)
+  const branchOptions = useSelector(state => state.data.branchs)
+ 
   const { employeeId } = useParams()
 
   const methods = useFormContext()
@@ -53,8 +57,8 @@ const EmployeeInformation = ({ isSuspended }) => {
                     fullWidth
                     id="name"
                     variant="outlined"
-                    label="First Name"
-                    placeholder="John"
+                    label="Employee Name"
+                    placeholder="John Doe"
                     error={!!errors.name || !field.value}
                     helperText={errors?.name?.message}
                     InputLabelProps={field.value && { shrink: true }}
@@ -66,29 +70,6 @@ const EmployeeInformation = ({ isSuspended }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Controller
-              name="last_name"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <CustomTextField
-                    {...field}
-                    fullWidth
-                    id="last_name"
-                    variant="outlined"
-                    label="Last Name"
-                    placeholder="John"
-                    error={!!errors.last_name || !field.value}
-                    helperText={errors?.last_name?.message}
-                    InputLabelProps={field.value && { shrink: true }}
-
-                  // onKeyDown={handleSubmitOnKeyDownEnter}
-                  />
-                );
-              }}
-            />
-          </Grid>
-          <Grid item xs={6}>
             <Controller
               name="email"
               control={control}
@@ -111,7 +92,75 @@ const EmployeeInformation = ({ isSuspended }) => {
               }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="role"
+              control={control}
+              render={({ field: { value, onChange } }) => {
+                return (
+                  <Autocomplete
+                    filterSelectedOptions
+                    options={roleOptions}
+                    value={value ? roleOptions.find(role => value === role.id) : null}
+                    getOptionLabel={option => `${option?.name}`}
+                    onChange={(e, newValue) => {
+                      onChange(newValue?.id)
+                    }}
+                    renderInput={params => {
+                      return (
+                        <CustomTextField
+                          {...params}
+                          placeholder="Select role"
+                          variant="outlined"
+                          size="small"
+                          label="Employee Role"
+                          InputLabelProps={{
+                            shrink: true
+                          }}
+                        />
+                      );
+                    }}
+                    getOptionKey={option => option?.id}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="branch"
+              control={control}
+              render={({ field: { value, onChange } }) => {
+                return (
+                  <Autocomplete
+                    filterSelectedOptions
+                    options={branchOptions}
+                    value={value ? branchOptions.find(branch => value === branch.id) : null}
+                    getOptionLabel={option => `${option?.name}`}
+                    onChange={(e, newValue) => {
+                      onChange(newValue?.id)
+                    }}
+                    renderInput={params => {
+                      return (
+                        <CustomTextField
+                          {...params}
+                          placeholder="Select branch"
+                          variant="outlined"
+                          size="small"
+                          label="Branch"
+                          InputLabelProps={{
+                            shrink: true
+                          }}
+                        />
+                      );
+                    }}
+                    getOptionKey={option => option?.id}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <Controller
               name="phone_number"
               control={control}
@@ -196,7 +245,7 @@ const EmployeeInformation = ({ isSuspended }) => {
               </Grid>
             </>
           )}
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Controller
               name="gender"
               control={control}
@@ -228,7 +277,7 @@ const EmployeeInformation = ({ isSuspended }) => {
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Controller
               name="birth_date"
               control={control}
@@ -253,7 +302,7 @@ const EmployeeInformation = ({ isSuspended }) => {
               }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Controller
               name="postal_code"
               control={control}
@@ -383,9 +432,8 @@ const EmployeeInformation = ({ isSuspended }) => {
                 )}
               />
               {image && !previewImage && (
-                <img src={`${image}`} style={{ width: '100px', height: '100px' }} alt="Not found" />
+                <img src={`${BASE_URL}/${image}`} style={{ width: '100px', height: '100px' }} alt="Not found" />
               )}
-
               {
                 previewImage && (
                   <img src={previewImage} style={{ width: '100px', height: '100px' }} alt="Not found" />

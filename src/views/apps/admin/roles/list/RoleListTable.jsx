@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 
 import _ from 'lodash'
-import moment from 'moment-timezone'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
@@ -26,24 +25,23 @@ import TableCell from '@mui/material/TableCell'
 import Pagination from '@mui/material/Pagination'
 
 // Component Imports
-import ProductTypeTableHead from './ProductTypeTableHead'
+import RoleTableHead from './RoleTableHead'
 import CustomTextField from '@core/components/mui/TextField'
 import OptionMenu from '@core/components/option-menu'
 
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 import { rowsPerPage } from '@/commons/dropdownOptions'
-import { BASE_URL } from '@/constants/constants'
 
 const ListTable = (props) => {
   const {
-    producttypeData,
+    roleData,
     loading,
     totalPages,
     params,
     setParams,
-    getAllProductType,
-    deleteProductType,
+    getAllRole,
+    deleteRole,
     selected,
     order,
     handleRequestSort,
@@ -53,16 +51,14 @@ const ListTable = (props) => {
   } = props
 
   let serialNumber = 1
-  const router = useRouter()
   const { lang: locale } = useParams()
 
-  const [searchKeyword, setSearchKeyword] = useState('')
   const componentRef = useRef()
 
   return (
     <>
       <Card>
-        <CardHeader title='Product Type List' />
+        <CardHeader title='Role List' />
         {/* header buttons */}
         <div className='flex flex-wrap justify-between gap-4 p-6'>
           <CustomTextField
@@ -71,13 +67,13 @@ const ListTable = (props) => {
             defaultValue={params?.keyword}
             onChange={e => {
               if (e.target.value.length === 0) {
-                getAllProductType({ ...params, keyword: '' })
+                getAllRole({ ...params, keyword: '' })
                 setParams({ ...params, keyword: '' })
               }
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && e.target.value) {
-                getAllProductType({ ...params, keyword: e.target.value })
+                getAllRole({ ...params, keyword: e.target.value })
                 setParams({ ...params, keyword: e.target.value })
               }
             }}
@@ -87,10 +83,10 @@ const ListTable = (props) => {
               variant='contained'
               component={Link}
               className='max-sm:is-full is-auto'
-              href={getLocalizedUrl('/apps/admin/product-types/new', locale)}
+              href={getLocalizedUrl('/apps/admin/roles/new', locale)}
               startIcon={<i className='tabler-plus' />}
             >
-              New Product-Type
+              New Role
             </Button>
           </div>
         </div>
@@ -99,7 +95,7 @@ const ListTable = (props) => {
         <div className='overflow-x-auto'>
           {
             loading ? '' : (
-              producttypeData?.length > 0 ? (
+              roleData?.length > 0 ? (
                 <div id="downloadPage">
                   <Table
                     stickyHeader
@@ -108,17 +104,17 @@ const ListTable = (props) => {
                     ref={componentRef}
                     id="table-to-xls"
                   >
-                    <ProductTypeTableHead
+                    <RoleTableHead
                       order={order}
                       selectedRpmIds={selected}
-                      rowCount={producttypeData.length}
+                      rowCount={roleData.length}
                       onSelectAllClick={handleSelectAllClick}
                       onRequestSort={handleRequestSort}
                       onMenuItemClick={handleDeselect}
                     />
                     <TableBody>
                       {_.orderBy(
-                        producttypeData,
+                        roleData,
                         [
                           o => {
                             switch (order.id) {
@@ -162,14 +158,7 @@ const ListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                <Link href={getLocalizedUrl(`/apps/admin/product-types/${n.id}`, locale)}>{n.name}</Link>
-                              </TableCell>
-                              <TableCell
-                                className="px-2 md:px-4 whitespace-nowrap"
-                                component="th"
-                                scope="row"
-                              >
-                                {n.is_active ? 'Yes' : 'No'}
+                                <Link href={getLocalizedUrl(`/apps/admin/roles/${n.id}`, locale)}>{n.name}</Link>
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
@@ -178,7 +167,7 @@ const ListTable = (props) => {
                               >
                                 <div className='flex items-center'>
                                   <Link
-                                    href={getLocalizedUrl(`/apps/admin/product-types/${n.id}`, locale)}
+                                    href={getLocalizedUrl(`/apps/admin/roles/${n.id}`, locale)}
                                   >
                                     <IconButton>
                                       <i className='tabler-edit text-textSecondary' />
@@ -191,7 +180,7 @@ const ListTable = (props) => {
                                       {
                                         text: 'Delete',
                                         icon: 'tabler-trash',
-                                        menuItemProps: { onClick: () => deleteProductType(n.id) }
+                                        menuItemProps: { onClick: () => deleteRole(n.id) }
                                       },
                                     ]}
                                   />
@@ -205,8 +194,8 @@ const ListTable = (props) => {
                 </div>
               ) : (
                 <div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { delay: 0.1 } }}
+                  initial={{ oparole: 0 }}
+                  animate={{ oparole: 1, transition: { delay: 0.1 } }}
                   className="flex flex-1 items-center justify-center h-full"
                 >
                   <Typography color="textSecondary" variant="h5">

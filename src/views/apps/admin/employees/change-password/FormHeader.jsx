@@ -71,9 +71,6 @@ const FormHeader = () => {
     }
   }
 
-
-
-
   return (
     <div className='flex flex-wrap sm:items-center justify-between max-sm:flex-col gap-6'>
       <div>
@@ -82,7 +79,7 @@ const FormHeader = () => {
         </Typography>
       </div>
       <div className='flex flex-wrap max-sm:flex-col gap-4'>
-        <Link href="/en/apps/employee">
+        <Link href="/en/apps/admin/employees">
           <Button variant='tonal' color='secondary'>Discard</Button>
         </Link>
         {

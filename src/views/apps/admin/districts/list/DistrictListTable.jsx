@@ -90,7 +90,7 @@ const ListTable = (props) => {
               href={getLocalizedUrl('/apps/admin/districts/new', locale)}
               startIcon={<i className='tabler-plus' />}
             >
-              New Product-Type
+              New District
             </Button>
           </div>
         </div>

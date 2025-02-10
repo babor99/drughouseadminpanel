@@ -42,10 +42,10 @@ const rows = [
         sort: true
     },
     {
-        id: 'title',
+        id: 'role',
         align: 'left',
         disablePadding: false,
-        label: 'Title',
+        label: 'Role',
         sort: true
     },
     {

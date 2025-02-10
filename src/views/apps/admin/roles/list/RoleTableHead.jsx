@@ -21,13 +21,6 @@ const rows = [
         sort: true
     },
     {
-        id: 'is_active',
-        align: 'left',
-        disablePadding: false,
-        label: 'Is Active',
-        sort: true
-    },
-    {
         id: 'action',
         align: 'left',
         disablePadding: false,
@@ -36,7 +29,7 @@ const rows = [
     }
 ];
 
-const ProductTypeTableHead = props => {
+const RoleTableHead = props => {
     const { selectedRpmIds } = props;
 
     const numSelected = selectedRpmIds.length;
@@ -89,4 +82,4 @@ const ProductTypeTableHead = props => {
     );
 };
 
-export default ProductTypeTableHead;
+export default RoleTableHead;

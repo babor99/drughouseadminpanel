@@ -21,10 +21,10 @@ const rows = [
         sort: true
     },
     {
-        id: 'is_active',
+        id: 'district',
         align: 'left',
         disablePadding: false,
-        label: 'Is Active',
+        label: 'District',
         sort: true
     },
     {
@@ -36,7 +36,7 @@ const rows = [
     }
 ];
 
-const ProductTypeTableHead = props => {
+const CityTableHead = props => {
     const { selectedRpmIds } = props;
 
     const numSelected = selectedRpmIds.length;
@@ -89,4 +89,4 @@ const ProductTypeTableHead = props => {
     );
 };
 
-export default ProductTypeTableHead;
+export default CityTableHead;

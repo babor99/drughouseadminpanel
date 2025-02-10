@@ -28,7 +28,6 @@ const FormHeader = () => {
   const { formState, watch, getValues } = methods;
   const { isValid, dirtyFields } = formState;
   const name = watch('name');
-  const last_name = watch('last_name');
 
   const [loading, setLoading] = useState(false)
 
@@ -122,14 +121,11 @@ const FormHeader = () => {
     }
   }
 
-
-
-
   return (
     <div className='flex flex-wrap sm:items-center justify-between max-sm:flex-col gap-6'>
       <div>
         <Typography variant='h4' className='mbe-1'>
-          {employeeId === 'new' ? 'New Employee' : isNumber(employeeId) && `${name} ${last_name}`}
+          {employeeId === 'new' ? 'New Employee' : isNumber(employeeId) && `${name}`}
         </Typography>
       </div>
       <div className='flex flex-wrap max-sm:flex-col gap-4'>

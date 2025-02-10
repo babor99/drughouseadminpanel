@@ -55,12 +55,12 @@ export default function AuthGuard({ children, locale }) {
             dispatch(setLoginSuccess({ isAuthenticated: data?.is_authenticated, accessToken: data?.access, csrfToken: data?.csrftoken }))
 
             // This is For Dynamic Sidebar
-            // dispatch(setMenuItem(data?.access))
+            dispatch(getRolesWP(data?.access, data?.csrftoken))
+            dispatch(getPermissionsWP(data?.access, data?.csrftoken))
+            dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
+            
             // dispatch(getUsersWP(data?.access, data?.csrftoken))
-            // dispatch(getRolesWP(data?.access, data?.csrftoken))
-            // dispatch(getPermissionsWP(data?.access, data?.csrftoken))
             // dispatch(getParentMenus(data?.access, data?.csrftoken))
-            // dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
             // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
 
             dispatch(getCountrysWP(data?.access, data?.csrftoken))

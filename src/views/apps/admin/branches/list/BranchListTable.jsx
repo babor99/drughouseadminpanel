@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 
 import _ from 'lodash'
-import moment from 'moment-timezone'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
@@ -26,24 +25,23 @@ import TableCell from '@mui/material/TableCell'
 import Pagination from '@mui/material/Pagination'
 
 // Component Imports
-import ProductTypeTableHead from './ProductTypeTableHead'
+import BranchTableHead from './BranchTableHead'
 import CustomTextField from '@core/components/mui/TextField'
 import OptionMenu from '@core/components/option-menu'
 
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 import { rowsPerPage } from '@/commons/dropdownOptions'
-import { BASE_URL } from '@/constants/constants'
 
 const ListTable = (props) => {
   const {
-    producttypeData,
+    branchData,
     loading,
     totalPages,
     params,
     setParams,
-    getAllProductType,
-    deleteProductType,
+    getAllBranch,
+    deleteBranch,
     selected,
     order,
     handleRequestSort,
@@ -56,13 +54,12 @@ const ListTable = (props) => {
   const router = useRouter()
   const { lang: locale } = useParams()
 
-  const [searchKeyword, setSearchKeyword] = useState('')
   const componentRef = useRef()
 
   return (
     <>
       <Card>
-        <CardHeader title='Product Type List' />
+        <CardHeader title='Branch List' />
         {/* header buttons */}
         <div className='flex flex-wrap justify-between gap-4 p-6'>
           <CustomTextField
@@ -71,13 +68,13 @@ const ListTable = (props) => {
             defaultValue={params?.keyword}
             onChange={e => {
               if (e.target.value.length === 0) {
-                getAllProductType({ ...params, keyword: '' })
+                getAllBranch({ ...params, keyword: '' })
                 setParams({ ...params, keyword: '' })
               }
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && e.target.value) {
-                getAllProductType({ ...params, keyword: e.target.value })
+                getAllBranch({ ...params, keyword: e.target.value })
                 setParams({ ...params, keyword: e.target.value })
               }
             }}
@@ -87,10 +84,10 @@ const ListTable = (props) => {
               variant='contained'
               component={Link}
               className='max-sm:is-full is-auto'
-              href={getLocalizedUrl('/apps/admin/product-types/new', locale)}
+              href={getLocalizedUrl('/apps/admin/branches/new', locale)}
               startIcon={<i className='tabler-plus' />}
             >
-              New Product-Type
+              New Branch
             </Button>
           </div>
         </div>
@@ -99,7 +96,7 @@ const ListTable = (props) => {
         <div className='overflow-x-auto'>
           {
             loading ? '' : (
-              producttypeData?.length > 0 ? (
+              branchData?.length > 0 ? (
                 <div id="downloadPage">
                   <Table
                     stickyHeader
@@ -108,17 +105,17 @@ const ListTable = (props) => {
                     ref={componentRef}
                     id="table-to-xls"
                   >
-                    <ProductTypeTableHead
+                    <BranchTableHead
                       order={order}
                       selectedRpmIds={selected}
-                      rowCount={producttypeData.length}
+                      rowCount={branchData.length}
                       onSelectAllClick={handleSelectAllClick}
                       onRequestSort={handleRequestSort}
                       onMenuItemClick={handleDeselect}
                     />
                     <TableBody>
                       {_.orderBy(
-                        producttypeData,
+                        branchData,
                         [
                           o => {
                             switch (order.id) {
@@ -162,7 +159,21 @@ const ListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                <Link href={getLocalizedUrl(`/apps/admin/product-types/${n.id}`, locale)}>{n.name}</Link>
+                                <Link href={getLocalizedUrl(`/apps/admin/branches/${n.id}`, locale)}>{n.name}</Link>
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                {n.city?.name}
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                {n.area?.name}
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
@@ -176,9 +187,23 @@ const ListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
+                                {n.postal_code}
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
+                                {n.address}
+                              </TableCell>
+                              <TableCell
+                                className="px-2 md:px-4 whitespace-nowrap"
+                                component="th"
+                                scope="row"
+                              >
                                 <div className='flex items-center'>
                                   <Link
-                                    href={getLocalizedUrl(`/apps/admin/product-types/${n.id}`, locale)}
+                                    href={getLocalizedUrl(`/apps/admin/branches/${n.id}`, locale)}
                                   >
                                     <IconButton>
                                       <i className='tabler-edit text-textSecondary' />
@@ -191,7 +216,7 @@ const ListTable = (props) => {
                                       {
                                         text: 'Delete',
                                         icon: 'tabler-trash',
-                                        menuItemProps: { onClick: () => deleteProductType(n.id) }
+                                        menuItemProps: { onClick: () => deleteBranch(n.id) }
                                       },
                                     ]}
                                   />

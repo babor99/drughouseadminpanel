@@ -15,10 +15,10 @@ import Typography from '@mui/material/Typography'
 
 import { getLocalizedUrl } from '@/utils/i18n'
 import { isEmpty, isNumber } from '@/commons/utils'
-import { CREATE_PRODUCT_TYPE, UPDATE_PRODUCT_TYPE } from '@/constants/constants'
+import { CREATE_BRANCH, UPDATE_BRANCH } from '@/constants/constants'
 
 const FormHeader = () => {
-  const { productTypeId, lang: locale } = useParams()
+  const { branchId, lang: locale } = useParams()
   const router = useRouter()
 
   const accessToken = useSelector(state => state.authentication.accessToken)
@@ -39,7 +39,7 @@ const FormHeader = () => {
     }
   }
 
-  function handleSaveProductType() {
+  function handleSaveBranch() {
     setLoading(true)
     const formData = new FormData()
     const formObject = getValues()
@@ -49,7 +49,7 @@ const FormHeader = () => {
     }
 
     try {
-      fetch(CREATE_PRODUCT_TYPE, {
+      fetch(CREATE_BRANCH, {
         method: 'POST',
         credentials: 'include',
         headers: authHeaders.headers,
@@ -60,24 +60,24 @@ const FormHeader = () => {
             return res.json()
           }
 
-          throw new Error(`ProductType create failed with status code ${res.status}`)
+          throw new Error(`Branch create failed with status code ${res.status}`)
         })
         .then(data => {
           setLoading(false)
-          toast.success("Success! ProductType created successfully!")
-          router.replace(getLocalizedUrl('/apps/admin/product-types', locale))
+          toast.success("Success! Branch created successfully!")
+          router.replace(getLocalizedUrl('/apps/admin/branches', locale))
         })
         .catch(error => {
           setLoading(false)
-          toast.error("Failed! ProductType create failed!")
+          toast.error("Failed! Branch create failed!")
         })
     } catch (err) {
       setLoading(false)
-      toast.error("Failed! ProductType create failed!")
+      toast.error("Failed! Branch create failed!")
     }
   }
 
-  function handleUpdateProductType() {
+  function handleUpdateBranch() {
     setLoading(true)
     const formData = new FormData()
     const formObject = getValues()
@@ -87,7 +87,7 @@ const FormHeader = () => {
     }
 
     try {
-      fetch(`${UPDATE_PRODUCT_TYPE}${productTypeId}`, {
+      fetch(`${UPDATE_BRANCH}${branchId}`, {
         method: 'PUT',
         credentials: 'include',
         headers: authHeaders.headers,
@@ -98,20 +98,20 @@ const FormHeader = () => {
             return res.json()
           }
 
-          throw new Error(`ProductType update failed with status code ${res.status}`)
+          throw new Error(`Branch update failed with status code ${res.status}`)
         })
         .then(data => {
           setLoading(false)
-          toast.success("Success! ProductType updated successfully!")
-          router.replace(getLocalizedUrl('/apps/admin/product-types', locale))
+          toast.success("Success! Branch updated successfully!")
+          router.replace(getLocalizedUrl('/apps/admin/branches', locale))
         })
         .catch(error => {
           setLoading(false)
-          toast.error("Failed! ProductType update failed!")
+          toast.error("Failed! Branch update failed!")
         })
     } catch (err) {
       setLoading(false)
-      toast.error("Failed! ProductType update failed!")
+      toast.error("Failed! Branch update failed!")
     }
   }
 
@@ -119,28 +119,28 @@ const FormHeader = () => {
     <div className='flex flex-wrap sm:items-center justify-between max-sm:flex-col gap-6'>
       <div>
         <Typography variant='h4' className='mbe-1'>
-          {productTypeId === 'new' ? 'New Product-Type' : isNumber(productTypeId) && `${name}`}
+          {branchId === 'new' ? 'New Product-Type' : isNumber(branchId) && `${name}`}
         </Typography>
       </div>
       <div className='flex flex-wrap max-sm:flex-col gap-4'>
-        <Link href="/en/apps/admin/product-types">
+        <Link href="/en/apps/admin/branches">
           <Button variant='tonal' color='secondary'>Discard</Button>
         </Link>
         {
-          productTypeId === 'new' ?
+          branchId === 'new' ?
             <Button
               variant='contained'
               disabled={!isValid || isEmpty(dirtyFields) || loading}
-              onClick={handleSaveProductType}
+              onClick={handleSaveBranch}
             >
               Save
             </Button>
             :
-            isNumber(productTypeId) &&
+            isNumber(branchId) &&
             <Button
               variant='contained'
               disabled={!isValid || isEmpty(dirtyFields) || loading}
-              onClick={handleUpdateProductType}
+              onClick={handleUpdateBranch}
             >
               Update
             </Button>

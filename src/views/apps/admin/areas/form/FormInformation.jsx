@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-
+import { useSelector } from 'react-redux'
 import { Controller, useFormContext } from 'react-hook-form'
 
 // MUI Imports
@@ -9,21 +8,21 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import Switch from '@mui/material/Switch'
+import Autocomplete from '@mui/material/Autocomplete'
 
 // Components Imports
 import CustomTextField from '@core/components/mui/TextField'
-import { BASE_URL } from '@/constants/constants'
 
-const ProductTypeInformation = () => {
+const AreaInformation = () => {
+  const cityOptions = useSelector(state=> state.data.citys)
+ 
   const methods = useFormContext()
   const { control, formState, getValues, watch } = methods
   const { errors, isValid, dirtyFields } = formState
 
   return (
     <Card>
-      <CardHeader title='Type Information' />
+      <CardHeader title='Area Information' />
       <CardContent>
         <Grid container spacing={6} className='mbe-6'>
           <Grid item xs={12}>
@@ -50,22 +49,38 @@ const ProductTypeInformation = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <div className='flex items-center justify-start'>
-              <Typography>Is Active?</Typography>
-              <Controller
-                name="is_active"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <Switch
-                      {...field}
-                      id="is_active"
-                      checked={field.value}
-                    />
-                  );
-                }}
-              />
-            </div>
+            <Controller
+              name="city"
+              control={control}
+              render={({ field: { value, onChange } }) => {
+                return (
+                  <Autocomplete
+                    filterSelectedOptions
+                    options={cityOptions}
+                    value={value ? cityOptions.find(city => value === city.id) : null}
+                    getOptionLabel={option => `${option?.name}`}
+                    onChange={(e, newValue) => {
+                      onChange(newValue?.id)
+                    }}
+                    renderInput={params => {
+                      return (
+                        <CustomTextField
+                          {...params}
+                          placeholder="Select city"
+                          variant="outlined"
+                          size="small"
+                          label="City"
+                          InputLabelProps={{
+                            shrink: true
+                          }}
+                        />
+                      );
+                    }}
+                    getOptionKey={option => option?.id}
+                  />
+                );
+              }}
+            />
           </Grid>
         </Grid>
       </CardContent>
@@ -73,4 +88,4 @@ const ProductTypeInformation = () => {
   )
 }
 
-export default ProductTypeInformation
+export default AreaInformation
