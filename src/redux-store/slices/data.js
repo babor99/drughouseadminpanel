@@ -6,18 +6,19 @@ import {
   GET_PERMISSIONS_WP,
   GET_USER_PERMISSION,
   GET_MENU_ITEMS_WP,
-  GET_MENU_ITEMS_ALL_NESTED,
+  GET_NESTED_MENU_ITEMS_WP,
   GET_COUNTRYS_WP,
   GET_STATES_WP,
   GET_DISTRICTS_WP,
   GET_CITYS_WP,
   GET_AREAS_WP,
   GET_BRANCHS_WP,
-  GET_REGIONS_WP,
-  GET_SCHOOLS_WP,
-  GET_SECTIONS_WP2,
-  GET_TEACHERS_WP2,
-  GET_COURSE_CATEGORYS_WP
+  GET_PRODUCT_CATEGORYS_WP,
+  GET_PRODUCT_TYPES_WP,
+  GET_DISCOUNTS_WP,
+  GET_MANUFACTURERS_WP,
+  GET_ORDER_STATUSS_WP,
+  GET_PAYMENT_METHODS_WP,
 } from '@/constants/constants'
 
 export const getUsersWP = (accessToken, csrfToken) => dispatch => {
@@ -84,7 +85,7 @@ export const getUserPermissionsWP = (accessToken, csrfToken) => dispatch => {
     .catch(() => { })
 }
 
-export const getParentMenus = (accessToken, csrfToken) => dispatch => {
+export const getMenuItemsWp = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
     headers: {
@@ -97,12 +98,12 @@ export const getParentMenus = (accessToken, csrfToken) => dispatch => {
   fetch(GET_MENU_ITEMS_WP, authHeaders)
     .then(response => response.json())
     .then(data => {
-      dispatch(setParentMenus(data.menu_items))
+      dispatch(setMenuItems(data.menu_items))
     })
     .catch(() => { })
 }
 
-export const getAllMenuNestedWp = (accessToken, csrfToken) => dispatch => {
+export const getNestedMenuItemsWp = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
     headers: {
@@ -112,10 +113,10 @@ export const getAllMenuNestedWp = (accessToken, csrfToken) => dispatch => {
     }
   }
 
-  fetch(GET_MENU_ITEMS_ALL_NESTED, authHeaders)
+  fetch(GET_NESTED_MENU_ITEMS_WP, authHeaders)
     .then(response => response.json())
     .then(data => {
-      dispatch(setAllMenuNested(data?.menu_items))
+      dispatch(setNestedMenuItems(data?.menu_items))
     })
     .catch(() => { })
 }
@@ -216,7 +217,7 @@ export const getBranchsWP = (accessToken, csrfToken) => dispatch => {
     .catch(() => { })
 }
 
-export const getRegionsWP = (accessToken, csrfToken) => dispatch => {
+export const getProductCategorysWP = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
     headers: {
@@ -226,13 +227,13 @@ export const getRegionsWP = (accessToken, csrfToken) => dispatch => {
     }
   }
 
-  fetch(GET_REGIONS_WP, authHeaders)
+  fetch(GET_PRODUCT_CATEGORYS_WP, authHeaders)
     .then(response => response.json())
-    .then(data => dispatch(setRegions(data.regions)))
+    .then(data => dispatch(setProductCategorys(data.categories || [])))
     .catch(() => { })
 }
 
-export const getSchoolsWP = (accessToken, csrfToken) => dispatch => {
+export const getProductTypesWp = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
     headers: {
@@ -242,13 +243,13 @@ export const getSchoolsWP = (accessToken, csrfToken) => dispatch => {
     }
   }
 
-  fetch(GET_SCHOOLS_WP, authHeaders)
+  fetch(GET_PRODUCT_TYPES_WP, authHeaders)
     .then(response => response.json())
-    .then(data => dispatch(setSchools(data.schools)))
+    .then(data => dispatch(setProductTypes(data.product_types || [])))
     .catch(() => { })
 }
 
-export const getSectionsWP2 = (accessToken, csrfToken) => dispatch => {
+export const getDiscountsWp = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
     headers: {
@@ -258,13 +259,13 @@ export const getSectionsWP2 = (accessToken, csrfToken) => dispatch => {
     }
   }
 
-  fetch(GET_SECTIONS_WP2, authHeaders)
+  fetch(GET_DISCOUNTS_WP, authHeaders)
     .then(response => response.json())
-    .then(data => dispatch(setSections2(data.sections)))
+    .then(data => dispatch(setDiscounts(data.discounts || [])))
     .catch(() => { })
 }
 
-export const getTeachersWP2 = (accessToken, csrfToken) => dispatch => {
+export const getManufacturersWp = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
     headers: {
@@ -274,13 +275,13 @@ export const getTeachersWP2 = (accessToken, csrfToken) => dispatch => {
     }
   }
 
-  fetch(GET_TEACHERS_WP2, authHeaders)
+  fetch(GET_MANUFACTURERS_WP, authHeaders)
     .then(response => response.json())
-    .then(data => dispatch(setTeachers2(data.teachers)))
+    .then(data => dispatch(setManufacturers(data.manufacturers || [])))
     .catch(() => { })
 }
 
-export const getCourseCategorysWP = (accessToken, csrfToken) => dispatch => {
+export const getOrderStatussWP = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
     headers: {
@@ -290,9 +291,25 @@ export const getCourseCategorysWP = (accessToken, csrfToken) => dispatch => {
     }
   }
 
-  fetch(GET_COURSE_CATEGORYS_WP, authHeaders)
+  fetch(GET_ORDER_STATUSS_WP, authHeaders)
     .then(response => response.json())
-    .then(data => dispatch(setCourseCategorys(data.categories)))
+    .then(data => dispatch(setOrderStatuss(data.order_statuses || [])))
+    .catch(() => { })
+}
+
+export const getPaymentMethodsWp = (accessToken, csrfToken) => dispatch => {
+  const authHeaders = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'X-CSRFToken': csrfToken
+    }
+  }
+
+  fetch(GET_PAYMENT_METHODS_WP, authHeaders)
+    .then(response => response.json())
+    .then(data => dispatch(setPaymentMethods(data.payment_methods || [])))
     .catch(() => { })
 }
 
@@ -304,19 +321,20 @@ const dataSlice = createSlice({
     roles: [],
     permissions: [],
     userPermissions: [],
-    parentMenus: [],
-    nestedMenus: [],
+    menuItems: [],
+    nestedMenuItems: [],
     countrys: [],
     states: [],
     districts: [],
     citys: [],
     areas: [],
     branchs: [],
-    regions: [],
-    schools: [],
-    sections2: [],
-    teachers2: [],
-    courseCategorys: [],
+    productCategorys: [],
+    productTypes: [],
+    discounts: [],
+    manufacturers: [],
+    orderStatuss: [],
+    paymentMethods: [],
   },
 
   reducers: {
@@ -335,11 +353,11 @@ const dataSlice = createSlice({
     setPermissionGroups: (state, action) => {
       state.permissionGroups = action.payload ? action.payload : []
     },
-    setParentMenus: (state, action) => {
-      state.parentMenus = action.payload ? action.payload : []
+    setMenuItems: (state, action) => {
+      state.menuItems = action.payload ? action.payload : []
     },
-    setAllMenuNested: (state, action) => {
-      state.nestedMenus = action.payload ? action.payload : []
+    setNestedMenuItems: (state, action) => {
+      state.nestedMenuItems = action.payload ? action.payload : []
     },
     setCountrys: (state, action) => {
       state.countrys = action.payload ? action.payload : []
@@ -359,20 +377,23 @@ const dataSlice = createSlice({
     setBranchs: (state, action) => {
       state.branchs = action.payload ? action.payload : []
     },
-    setRegions: (state, action) => {
-      state.regions = action.payload ? action.payload : []
+    setProductCategorys: (state, action) => {
+      state.productCategorys = action.payload ? action.payload : []
     },
-    setSchools: (state, action) => {
-      state.schools = action.payload ? action.payload : []
+    setProductTypes: (state, action) => {
+      state.productTypes = action.payload ? action.payload : []
     },
-    setSections2: (state, action) => {
-      state.sections2 = action.payload ? action.payload : []
+    setDiscounts: (state, action) => {
+      state.discounts = action.payload ? action.payload : []
     },
-    setTeachers2: (state, action) => {
-      state.teachers2 = action.payload ? action.payload : []
+    setManufacturers: (state, action) => {
+      state.manufacturers = action.payload ? action.payload : []
     },
-    setCourseCategorys: (state, action) => {
-      state.courseCategorys = action.payload ? action.payload : []
+    setOrderStatuss: (state, action) => {
+      state.orderStatuss = action.payload ? action.payload : []
+    },
+    setPaymentMethods: (state, action) => {
+      state.paymentMethods = action.payload ? action.payload : []
     }
   }
 })
@@ -382,19 +403,20 @@ const {
   setRoles,
   setPermissions,
   setUserPermissions,
-  setParentMenus,
-  setAllMenuNested,
+  setMenuItems,
+  setNestedMenuItems,
   setCountrys,
   setStates,
   setDistricts,
   setCitys,
   setAreas,
   setBranchs,
-  setRegions,
-  setSchools,
-  setSections2,
-  setTeachers2,
-  setCourseCategorys
+  setProductCategorys,
+  setProductTypes,
+  setDiscounts,
+  setManufacturers,
+  setOrderStatuss,
+  setPaymentMethods
 } = dataSlice.actions
 
 export default dataSlice.reducer

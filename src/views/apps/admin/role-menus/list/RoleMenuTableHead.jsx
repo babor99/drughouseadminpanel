@@ -14,17 +14,10 @@ const rows = [
         sort: false
     },
     {
-        id: 'name',
+        id: 'role',
         align: 'left',
         disablePadding: false,
-        label: 'Name',
-        sort: true
-    },
-    {
-        id: 'district',
-        align: 'left',
-        disablePadding: false,
-        label: 'District',
+        label: 'Role',
         sort: true
     },
     {
@@ -36,7 +29,7 @@ const rows = [
     }
 ];
 
-const CityTableHead = props => {
+const RoleMenuTableHead = props => {
     const { selectedRpmIds } = props;
 
     const numSelected = selectedRpmIds.length;
@@ -89,4 +82,4 @@ const CityTableHead = props => {
     );
 };
 
-export default CityTableHead;
+export default RoleMenuTableHead;

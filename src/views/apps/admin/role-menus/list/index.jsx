@@ -10,16 +10,16 @@ import { toast } from 'react-toastify'
 import Grid from '@mui/material/Grid'
 
 // Component Imports
-import CityListTable from './CityListTable'
+import RoleMenuListTable from './RoleMenuListTable'
 
-import { GET_CITYS, DELETE_CITY } from '@/constants/constants'
+import { GET_ROLE_MENUS, DELETE_ROLE_MENU } from '@/constants/constants'
 import { objectToQueryString } from '@/commons/utils'
 
-const CityList = () => {
+const RoleMenuList = () => {
     const accessToken = useSelector(state => state.authentication.accessToken)
     const csrfToken = useSelector(state => state.authentication.csrfToken)
 
-    const [cityData, setCityData] = useState([])
+    const [roleMenuData, setRoleMenuData] = useState([])
     const [selected, setSelected] = useState([])
     const [loading, setLoading] = useState(false)
     const [totalPages, setTotalPages] = useState(0)
@@ -51,7 +51,7 @@ const CityList = () => {
 
     function handleSelectAllClick(event) {
         if (event.target.checked) {
-            setSelected(cityData.map(n => n.id));
+            setSelected(roleMenuData.map(n => n.id));
 
             return;
         }
@@ -81,10 +81,10 @@ const CityList = () => {
     }
 
     useEffect(() => {
-        getAllCity(params)
+        getAllRoleMenu(params)
     }, [params.page, params.size])
 
-    function getAllCity(seachParams) {
+    function getAllRoleMenu(seachParams) {
         setLoading(true)
 
         const authHeaders = {
@@ -97,16 +97,16 @@ const CityList = () => {
         }
 
         try {
-            fetch(`${GET_CITYS}?${objectToQueryString(seachParams)}`, authHeaders)
+            fetch(`${GET_ROLE_MENUS}?${objectToQueryString(seachParams)}`, authHeaders)
                 .then(res => {
                     if (res.ok && [200, 201].includes(res.status)) {
                         return res.json()
                     }
 
-                    throw new Error(`City get failed with status code ${res.status}`)
+                    throw new Error(`RoleMenu get failed with status code ${res.status}`)
                 })
                 .then(data => {
-                    setCityData(data?.cities || [])
+                    setRoleMenuData(data?.role_menus || [])
                     setTotalPages(data?.total_pages)
                     setLoading(false)
                 })
@@ -118,7 +118,7 @@ const CityList = () => {
         }
     }
 
-    const deleteCity = (cityId) => {
+    const deleteRoleMenu = (roleMenuId) => {
         const authHeaders = {
             method: 'DELETE',
             credentials: 'include',
@@ -130,37 +130,37 @@ const CityList = () => {
         }
 
         try {
-            fetch(`${DELETE_CITY}${cityId}`, authHeaders)
+            fetch(`${DELETE_ROLE_MENU}${roleMenuId}`, authHeaders)
                 .then(res => {
                     if (res.ok && [200, 201].includes(res.status)) {
                         return res.json()
                     }
 
-                    throw new Error(`City delete failed with status code ${res.status}`)
+                    throw new Error(`RoleMenu delete failed with status code ${res.status}`)
                 })
                 .then(data => {
-                    getAllCity({ ...params })
-                    toast.success("Success! City deleted successfully!")
+                    getAllRoleMenu({ ...params })
+                    toast.success("Success! RoleMenu deleted successfully!")
                 })
                 .catch(error => {
-                    toast.error("Failed! City delete failed!")
+                    toast.error("Failed! RoleMenu delete failed!")
                 })
         } catch (err) {
-            toast.error("Failed! City delete failed!")
+            toast.error("Failed! RoleMenu delete failed!")
         }
     }
 
     return (
         <Grid container spacing={6}>
             <Grid item xs={12}>
-                <CityListTable
-                    cityData={cityData}
+                <RoleMenuListTable
+                    roleMenuData={roleMenuData}
                     loading={loading}
                     totalPages={totalPages}
                     params={params}
                     setParams={setParams}
-                    getAllCity={getAllCity}
-                    deleteCity={deleteCity}
+                    getAllRoleMenu={getAllRoleMenu}
+                    deleteRoleMenu={deleteRoleMenu}
                     selected={selected}
                     order={order}
                     handleRequestSort={handleRequestSort}
@@ -173,4 +173,4 @@ const CityList = () => {
     )
 }
 
-export default CityList
+export default RoleMenuList

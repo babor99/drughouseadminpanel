@@ -26,15 +26,27 @@ const ProductForm = () => {
     const accessToken = useSelector(state => state.authentication.accessToken)
     const csrfToken = useSelector(state => state.authentication.csrfToken)
     const [product, setProduct] = useState({})
-    const [sections, setSections] = useState([])
 
     const router = useRouter()
 
     const yupObject = {
         name: yup.string().required('Name is required').min(3, 'Name must be at least 3 characters long'),
-        year_started: yup.number().required('Last name is required'),
-        state: yup.number().required('State is required'),
-        region: yup.number().required('District is required'),
+        quantity: yup.number().required('Quantity is required'),
+        unit_price: yup.number().required('Unit price is required'),
+        old_price: yup.number().notRequired(),
+        is_active: yup.bool().notRequired(),
+        is_published: yup.bool().notRequired(),
+        branch: yup.string().required('Branch is required'),
+        category: yup.string().required('Category is required'),
+        product_type: yup.string().required('Product-type is required'),
+        manufacturer: yup.string().required('Manufacturer is required'),
+        sku: yup.string().notRequired(),
+        gtin: yup.string().notRequired(),
+        short_description: yup.string().notRequired(),
+        full_description: yup.string().notRequired(),
+        specification: yup.string().notRequired(),
+        description: yup.string().notRequired(),
+        features: yup.string().notRequired(),
     }
 
     const schema = yup.object().shape(yupObject);
@@ -55,7 +67,7 @@ const ProductForm = () => {
 
     useEffect(() => {
         if (productId !== 'new' && !isNumber(productId)) {
-            router.replace(getLocalizedUrl('/apps/product', locale))
+            router.replace(getLocalizedUrl('/apps/admin/products', locale))
         }
 
         if (isNumber(productId)) {
@@ -84,32 +96,22 @@ const ProductForm = () => {
                     throw new Error(`Product get failed with status code ${res.status}`)
                 })
                 .then(data => {
-
-                    setProduct(data?.product)
-                    setSections(data?.sections)
+                    setProduct(data)
                 })
                 .catch(error => {
-
                 })
         } catch (err) {
-
         }
     }
-
-
 
     return (
         <FormProvider {...methods}>
             <Grid container spacing={6}>
-                <Grid item xs={12} md={productId === 'new' ? 12 : 7}>
-                    <Grid container spacing={6}>
-                        <Grid item xs={12}>
-                            <div className="mb-2 xl:mb-3">
-                                <FormHeader />
-                            </div>
-                            <ProductInformation />
-                        </Grid>
-                    </Grid>
+                <Grid item xs={12}>
+                    <div className="mb-2 xl:mb-3">
+                        <FormHeader />
+                    </div>
+                    <ProductInformation />
                 </Grid>
             </Grid>
         </FormProvider>

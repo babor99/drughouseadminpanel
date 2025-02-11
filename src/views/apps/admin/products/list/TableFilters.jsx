@@ -15,50 +15,38 @@ import Button from '@mui/material/Button'
 import CustomTextField from '@core/components/mui/TextField'
 
 const TableFilters = (props) => {
+  const categoryOptions = useSelector(state => state.data.categorys || [])
+  const productTypeOptions = useSelector(state => state.data.productTypes || [])
+  const manufacturerOptions = useSelector(state => state.data.manufacturers || [])
+
   const {
     params,
     setParams,
     getAllProduct,
   } = props
 
-  const stateOptions = useSelector(state => state.data.states)
-  const regionOptions = useSelector(state => state.data.regions)
-  const [filteredRegionOptions, setFilterRegionOptions] = useState([])
-
-  useEffect(() => {
-    const newRegionOptions = regionOptions.filter((region) => params?.state === region?.state)
-
-    setFilterRegionOptions([...newRegionOptions])
-  }, [params?.state])
-
   return (
     <CardContent>
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Autocomplete
             filterSelectedOptions
-            options={stateOptions}
-            value={params?.state ? stateOptions.find(state => params?.state === state.id) : null}
+            options={categoryOptions}
+            value={params?.category ? categoryOptions.find(category => params?.category === category.id) : null}
             getOptionLabel={option => `${option?.name}`}
             onChange={(event, newValue) => {
-
-
               if (newValue) {
-                setParams(prevParams => {
-                  return { ...prevParams, state: newValue.id }
-                })
+                setParams({ ...params, category: newValue.id })
               } else {
-                setParams(prevParams => {
-                  return { ...prevParams, state: '', region: '', assigned_products: [] }
-                })
-                getAllProduct({ ...params, state: '', region: '', assigned_products: [] })
+                getAllProduct({ ...params, category: ''})
+                setParams({ ...params, category: ''})
               }
             }}
             renderInput={params => {
               return (
                 <CustomTextField
                   {...params}
-                  placeholder="Select state"
+                  placeholder="Select category"
                   variant="outlined"
                   size="small"
                   InputLabelProps={{
@@ -70,29 +58,55 @@ const TableFilters = (props) => {
             getOptionKey={option => option?.id}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Autocomplete
             filterSelectedOptions
-            options={filteredRegionOptions}
-            value={params?.region ? filteredRegionOptions.find(region => params?.region === region.id) : null}
+            options={productTypeOptions}
+            value={params?.product_type ? productTypeOptions.find(pt => params?.product_type === pt.id) : null}
             getOptionLabel={option => `${option?.name}`}
             onChange={(event, newValue) => {
               if (newValue) {
-
-                setParams(prevParams => {
-                  return { ...prevParams, region: newValue.id }
-                })
+                setParams({ ...params, product_type: newValue.id })
               } else {
-                setParams(prevParams => {
-                  return { ...prevParams, region: '', assigned_products: [] }
-                })
+                getAllProduct({ ...params, product_type: ''})
+                setParams({ ...params, product_type: ''})
               }
             }}
             renderInput={params => {
               return (
                 <CustomTextField
                   {...params}
-                  placeholder="Select region"
+                  placeholder="Select product-type"
+                  variant="outlined"
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                />
+              );
+            }}
+            getOptionKey={option => option?.id}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Autocomplete
+            filterSelectedOptions
+            options={manufacturerOptions}
+            value={params?.manufacturer ? manufacturerOptions.find(mn => params?.manufacturer === mn.id) : null}
+            getOptionLabel={option => `${option?.name}`}
+            onChange={(event, newValue) => {
+              if (newValue) {
+                setParams({ ...params, manufacturer: newValue.id })
+              } else {
+                getAllProduct({ ...params, manufacturer: ''})
+                setParams({ ...params, manufacturer: ''})
+              }
+            }}
+            renderInput={params => {
+              return (
+                <CustomTextField
+                  {...params}
+                  placeholder="Select manufacturer"
                   variant="outlined"
                   size="small"
                   InputLabelProps={{
@@ -110,7 +124,7 @@ const TableFilters = (props) => {
             color='secondary'
             className='max-sm:is-full is-auto'
             startIcon={<i className='tabler-filter' />}
-            disabled={!params?.state}
+            disabled={!params?.category && !params?.product_type && !params?.manufacturer}
             onClick={() => getAllProduct(params)}
           >
             Filter

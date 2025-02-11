@@ -49,14 +49,20 @@ import {
   getPermissionsWP,
   getUsersWP,
   getUserPermissionsWP,
-  getAllMenuNestedWp,
-  getParentMenus,
+  getNestedMenuItemsWp,
+  getMenuItemsWp,
   getCountrysWP,
   getStatesWP,
   getDistrictsWP,
   getCitysWP,
   getAreasWP,
   getBranchsWP,
+  getProductCategorysWP,
+  getProductTypesWp,
+  getDiscountsWp,
+  getManufacturersWp,
+  getOrderStatussWP,
+  getPaymentMethodsWp,
 } from '@/redux-store/slices/data'
 
 import { setLoginSuccess, setLoginFailed } from '@/redux-store/slices/authentication'
@@ -178,7 +184,6 @@ const Login = ({ mode }) => {
           if (data && data?.is_authenticated) {
             const redirectURL = searchParams.get('redirectTo') ?? '/'
 
-            
             dispatch(setUser(data))
             dispatch(setLoginSuccess({ isAuthenticated: data?.is_authenticated, accessToken: data?.access, csrfToken: data?.csrftoken }))
 
@@ -186,18 +191,24 @@ const Login = ({ mode }) => {
             dispatch(getRolesWP(data?.access, data?.csrftoken))
             dispatch(getPermissionsWP(data?.access, data?.csrftoken))
             dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
-            
-            // dispatch(getUsersWP(data?.access, data?.csrftoken))
-            // dispatch(getParentMenus(data?.access, data?.csrftoken))
-            // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
-
+            dispatch(getNestedMenuItemsWp(data?.access, data?.csrftoken))
             dispatch(getCountrysWP(data?.access, data?.csrftoken))
             dispatch(getStatesWP(data?.access, data?.csrftoken))
             dispatch(getDistrictsWP(data?.access, data?.csrftoken))
             dispatch(getCitysWP(data?.access, data?.csrftoken))
             dispatch(getAreasWP(data?.access, data?.csrftoken))
             dispatch(getBranchsWP(data?.access, data?.csrftoken))
-            
+
+            dispatch(getProductCategorysWP(data?.access, data?.csrftoken))
+            dispatch(getProductTypesWp(data?.access, data?.csrftoken))
+            dispatch(getDiscountsWp(data?.access, data?.csrftoken))
+            dispatch(getManufacturersWp(data?.access, data?.csrftoken))
+            dispatch(getOrderStatussWP(data?.access, data?.csrftoken))
+            dispatch(getPaymentMethodsWp(data?.access, data?.csrftoken))
+
+            // dispatch(getUsersWP(data?.access, data?.csrftoken))
+            // dispatch(getMenuItemsWp(data?.access, data?.csrftoken))
+
             toast.success("Login successful!")
             router.push(getLocalizedUrl('/apps/dashboard', locale))
           }
@@ -248,17 +259,23 @@ const Login = ({ mode }) => {
             dispatch(getRolesWP(data?.access, data?.csrftoken))
             dispatch(getPermissionsWP(data?.access, data?.csrftoken))
             dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
-            
-            // dispatch(getUsersWP(data?.access, data?.csrftoken))
-            // dispatch(getParentMenus(data?.access, data?.csrftoken))
-            // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
-
+            dispatch(getNestedMenuItemsWp(data?.access, data?.csrftoken))
             dispatch(getCountrysWP(data?.access, data?.csrftoken))
             dispatch(getStatesWP(data?.access, data?.csrftoken))
             dispatch(getDistrictsWP(data?.access, data?.csrftoken))
             dispatch(getCitysWP(data?.access, data?.csrftoken))
             dispatch(getAreasWP(data?.access, data?.csrftoken))
             dispatch(getBranchsWP(data?.access, data?.csrftoken))
+
+            dispatch(getProductCategorysWP(data?.access, data?.csrftoken))
+            dispatch(getProductTypesWp(data?.access, data?.csrftoken))
+            dispatch(getDiscountsWp(data?.access, data?.csrftoken))
+            dispatch(getManufacturersWp(data?.access, data?.csrftoken))
+            dispatch(getOrderStatussWP(data?.access, data?.csrftoken))
+            dispatch(getPaymentMethodsWp(data?.access, data?.csrftoken))
+
+            // dispatch(getUsersWP(data?.access, data?.csrftoken))
+            // dispatch(getMenuItemsWp(data?.access, data?.csrftoken))
 
             router.push(getLocalizedUrl('/apps/dashboard', locale))
           } else {

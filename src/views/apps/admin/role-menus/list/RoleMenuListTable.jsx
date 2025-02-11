@@ -1,14 +1,13 @@
 'use client'
 
 // React Imports
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 
 // Next Imports
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 
 import _ from 'lodash'
-import moment from 'moment-timezone'
 
 // MUI Imports
 import Grid from '@mui/material/Grid'
@@ -26,7 +25,7 @@ import TableCell from '@mui/material/TableCell'
 import Pagination from '@mui/material/Pagination'
 
 // Component Imports
-import CityTableHead from './CityTableHead'
+import RoleMenuTableHead from './RoleMenuTableHead'
 import CustomTextField from '@core/components/mui/TextField'
 import OptionMenu from '@core/components/option-menu'
 
@@ -36,13 +35,13 @@ import { rowsPerPage } from '@/commons/dropdownOptions'
 
 const ListTable = (props) => {
   const {
-    cityData,
+    roleMenuData,
     loading,
     totalPages,
     params,
     setParams,
-    getAllCity,
-    deleteCity,
+    getAllRoleMenu,
+    deleteRoleMenu,
     selected,
     order,
     handleRequestSort,
@@ -55,13 +54,12 @@ const ListTable = (props) => {
   const router = useRouter()
   const { lang: locale } = useParams()
 
-  const [searchKeyword, setSearchKeyword] = useState('')
   const componentRef = useRef()
 
   return (
     <>
       <Card>
-        <CardHeader title='City List' />
+        <CardHeader title='Role-Menu List' />
         {/* header buttons */}
         <div className='flex flex-wrap justify-between gap-4 p-6'>
           <CustomTextField
@@ -70,13 +68,13 @@ const ListTable = (props) => {
             defaultValue={params?.keyword}
             onChange={e => {
               if (e.target.value.length === 0) {
-                getAllCity({ ...params, keyword: '' })
+                getAllRoleMenu({ ...params, keyword: '' })
                 setParams({ ...params, keyword: '' })
               }
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && e.target.value) {
-                getAllCity({ ...params, keyword: e.target.value })
+                getAllRoleMenu({ ...params, keyword: e.target.value })
                 setParams({ ...params, keyword: e.target.value })
               }
             }}
@@ -86,10 +84,10 @@ const ListTable = (props) => {
               variant='contained'
               component={Link}
               className='max-sm:is-full is-auto'
-              href={getLocalizedUrl('/apps/admin/cities/new', locale)}
+              href={getLocalizedUrl('/apps/admin/role-menus/new', locale)}
               startIcon={<i className='tabler-plus' />}
             >
-              New City
+              New Role-Menu
             </Button>
           </div>
         </div>
@@ -98,7 +96,7 @@ const ListTable = (props) => {
         <div className='overflow-x-auto'>
           {
             loading ? '' : (
-              cityData?.length > 0 ? (
+              roleMenuData?.length > 0 ? (
                 <div id="downloadPage">
                   <Table
                     stickyHeader
@@ -107,17 +105,17 @@ const ListTable = (props) => {
                     ref={componentRef}
                     id="table-to-xls"
                   >
-                    <CityTableHead
+                    <RoleMenuTableHead
                       order={order}
                       selectedRpmIds={selected}
-                      rowCount={cityData.length}
+                      rowCount={roleMenuData.length}
                       onSelectAllClick={handleSelectAllClick}
                       onRequestSort={handleRequestSort}
                       onMenuItemClick={handleDeselect}
                     />
                     <TableBody>
                       {_.orderBy(
-                        cityData,
+                        roleMenuData,
                         [
                           o => {
                             switch (order.id) {
@@ -161,14 +159,7 @@ const ListTable = (props) => {
                                 component="th"
                                 scope="row"
                               >
-                                <Link href={getLocalizedUrl(`/apps/admin/cities/${n.id}`, locale)}>{n.name}</Link>
-                              </TableCell>
-                              <TableCell
-                                className="px-2 md:px-4 whitespace-nowrap"
-                                component="th"
-                                scope="row"
-                              >
-                                {n.district?.name}
+                                <Link href={getLocalizedUrl(`/apps/admin/role-menus/${n.id}`, locale)}>{n.role?.name}</Link>
                               </TableCell>
                               <TableCell
                                 className="px-2 md:px-4 whitespace-nowrap"
@@ -177,7 +168,7 @@ const ListTable = (props) => {
                               >
                                 <div className='flex items-center'>
                                   <Link
-                                    href={getLocalizedUrl(`/apps/admin/cities/${n.id}`, locale)}
+                                    href={getLocalizedUrl(`/apps/admin/role-menus/${n.id}`, locale)}
                                   >
                                     <IconButton>
                                       <i className='tabler-edit text-textSecondary' />
@@ -190,7 +181,7 @@ const ListTable = (props) => {
                                       {
                                         text: 'Delete',
                                         icon: 'tabler-trash',
-                                        menuItemProps: { onClick: () => deleteCity(n.id) }
+                                        menuItemProps: { onClick: () => deleteRoleMenu(n.id) }
                                       },
                                     ]}
                                   />
@@ -204,12 +195,12 @@ const ListTable = (props) => {
                 </div>
               ) : (
                 <div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { delay: 0.1 } }}
+                  initial={{ oparoleMenu: 0 }}
+                  animate={{ oparoleMenu: 1, transition: { delay: 0.1 } }}
                   className="flex flex-1 items-center justify-center h-full"
                 >
                   <Typography color="textSecondary" variant="h5">
-                    No type found!
+                    No role-menu found!
                   </Typography>
                 </div>
               )

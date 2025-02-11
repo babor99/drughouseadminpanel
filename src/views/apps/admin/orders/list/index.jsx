@@ -28,8 +28,9 @@ const OrderList = () => {
         page: 1,
         size: 100,
         keyword: '',
-        state: '',
-        region: '',
+        branch: '',
+        status: '',
+        payment_method: '',
     })
 
     const [order, setOrder] = useState({

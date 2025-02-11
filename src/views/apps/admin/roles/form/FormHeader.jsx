@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { useFormContext } from 'react-hook-form'
 
@@ -15,14 +15,17 @@ import Typography from '@mui/material/Typography'
 
 import { getLocalizedUrl } from '@/utils/i18n'
 import { isEmpty, isNumber } from '@/commons/utils'
+import { getRolesWP } from '@/redux-store/slices/data'
 import { CREATE_ROLE, UPDATE_ROLE } from '@/constants/constants'
 
 const FormHeader = () => {
-  const { roleId, lang: locale } = useParams()
-  const router = useRouter()
-
   const accessToken = useSelector(state => state.authentication.accessToken)
   const csrfToken = useSelector(state => state.authentication.csrfToken)
+
+  const { roleId, lang: locale } = useParams()
+  const router = useRouter()
+  const dispatch = useDispatch()
+
 
   const methods = useFormContext();
   const { formState, watch, getValues } = methods;
@@ -61,6 +64,7 @@ const FormHeader = () => {
           throw new Error(`Role create failed with status code ${res.status}`)
         })
         .then(data => {
+          dispatch(getRolesWP(accessToken, csrfToken))
           setLoading(false)
           toast.success("Success! Role created successfully!")
           router.replace(getLocalizedUrl('/apps/admin/roles', locale))
@@ -95,6 +99,7 @@ const FormHeader = () => {
           throw new Error(`Role update failed with status code ${res.status}`)
         })
         .then(data => {
+          dispatch(getRolesWP(accessToken, csrfToken))
           setLoading(false)
           toast.success("Success! Role updated successfully!")
           router.replace(getLocalizedUrl('/apps/admin/roles', locale))

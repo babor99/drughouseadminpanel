@@ -28,8 +28,9 @@ const ProductList = () => {
         page: 1,
         size: 100,
         keyword: '',
-        state: '',
-        region: '',
+        category: '',
+        product_type: '',
+        manufacturer: '',
     })
 
     const [order, setOrder] = useState({

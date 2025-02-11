@@ -21,35 +21,21 @@ import Switch from '@mui/material/Switch'
 // Components Imports
 import CustomTextField from '@core/components/mui/TextField'
 
-import { genderOptions } from '@/commons/dropdownOptions'
-
 import { BASE_URL } from '@/constants/constants'
 
 const ProductInformation = () => {
+  const branchOptions = useSelector(state => state.data.branchs || [])
+  const categoryOptions = useSelector(state => state.data.productCategorys || [])
+  const productTypeOptions = useSelector(state => state.data.productTypes || [])
+  const manufacturerOptions = useSelector(state => state.data.manufacturers || [])
+  
   const { productId } = useParams()
-
-  const stateOptions = useSelector(state => state.data.states)
-  const regionOptions = useSelector(state => state.data.regions)
-  const [filteredRegionOptions, setFilteredRegionOptions] = useState([])
-
   const methods = useFormContext()
   const { control, formState, getValues, watch } = methods
   const { errors, isValid, dirtyFields } = formState
 
-  const state = watch('state')
-  const image = watch('logo')
+  const image = watch('thumbnail')
   const [previewImage, setPreviewImage] = useState(null)
-
-  useEffect(() => {
-    if (watch('state')) {
-      const newRegionOptions = regionOptions.filter((region) => state === region.state)
-
-      setFilteredRegionOptions([...newRegionOptions])
-
-
-    }
-
-  }, [watch('state')])
 
   return (
     <Card>
@@ -68,7 +54,7 @@ const ProductInformation = () => {
                     id="name"
                     variant="outlined"
                     label="Name"
-                    placeholder="Salt Lake City High Product"
+                    placeholder="Product name"
                     error={!!errors.name || !field.value}
                     helperText={errors?.name?.message}
                     InputLabelProps={field.value && { shrink: true }}
@@ -81,19 +67,19 @@ const ProductInformation = () => {
           </Grid>
           <Grid item xs={12}>
             <Controller
-              name="year_started"
+              name="quantity"
               control={control}
               render={({ field }) => {
                 return (
                   <CustomTextField
                     {...field}
                     fullWidth
-                    id="year_started"
+                    id="quantity"
                     variant="outlined"
-                    label="Year Started"
-                    placeholder="2024"
-                    error={!!errors.year_started || !field.value}
-                    helperText={errors?.year_started?.message}
+                    label="Quantity"
+                    placeholder="12"
+                    error={!!errors.quantity || !field.value}
+                    helperText={errors?.quantity?.message}
                     InputLabelProps={field.value && { shrink: true }}
 
                   // onKeyDown={handleSubmitOnKeyDownEnter}
@@ -104,28 +90,74 @@ const ProductInformation = () => {
           </Grid>
           <Grid item xs={12}>
             <Controller
-              name="state"
+              name="unit_price"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    id="unit_price"
+                    variant="outlined"
+                    label="Unit Price"
+                    placeholder="6.34"
+                    error={!!errors.unit_price || !field.value}
+                    helperText={errors?.unit_price?.message}
+                    InputLabelProps={field.value && { shrink: true }}
+
+                  // onKeyDown={handleSubmitOnKeyDownEnter}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="old_price"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    id="old_price"
+                    variant="outlined"
+                    label="Old Price"
+                    placeholder="6.12"
+                    error={!!errors.old_price || !field.value}
+                    helperText={errors?.old_price?.message}
+                    InputLabelProps={field.value && { shrink: true }}
+
+                  // onKeyDown={handleSubmitOnKeyDownEnter}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="branch"
               control={control}
               render={({ field: { onChange, value } }) => (
                 <Autocomplete
                   filterSelectedOptions
-                  options={stateOptions}
-                  value={value ? stateOptions.find(state => state?.id === value) : null}
+                  options={branchOptions}
+                  value={value ? branchOptions.find(branch => branch?.id === value) : null}
                   getOptionKey={option => option?.id}
                   getOptionLabel={option => `${option.name}`}
                   onChange={(event, newValue) => {
-                    onChange(newValue?.id);
+                    onChange(newValue?.id)
                   }}
                   renderInput={params => {
                     return (
                       <CustomTextField
                         {...params}
-                        label="State"
-                        placeholder="Select state"
+                        label="Branch"
+                        placeholder="Select branch"
                         variant="outlined"
                         size="small"
-                        error={!!errors.state || !value}
-                        helperText={errors?.state?.message}
+                        error={!!errors.branch || !value}
+                        helperText={errors?.branch?.message}
                         InputLabelProps={value && { shrink: true }}
                       />
                     );
@@ -136,13 +168,13 @@ const ProductInformation = () => {
           </Grid>
           <Grid item xs={12}>
             <Controller
-              name="region"
+              name="category"
               control={control}
               render={({ field: { onChange, value } }) => (
                 <Autocomplete
                   filterSelectedOptions
-                  options={filteredRegionOptions}
-                  value={value ? filteredRegionOptions.find(region => value === region?.id) : null}
+                  options={categoryOptions}
+                  value={value ? categoryOptions.find(category => value === category?.id) : null}
                   getOptionKey={option => option?.id}
                   getOptionLabel={option => `${option.name}`}
                   onChange={(event, newValue) => {
@@ -152,8 +184,8 @@ const ProductInformation = () => {
                     return (
                       <CustomTextField
                         {...params}
-                        label="Region"
-                        placeholder="Select region"
+                        label="Category"
+                        placeholder="Select category"
                         variant="outlined"
                         size="small"
                         InputLabelProps={{
@@ -168,20 +200,240 @@ const ProductInformation = () => {
           </Grid>
           <Grid item xs={12}>
             <Controller
-              name="address"
+              name="product_type"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Autocomplete
+                  filterSelectedOptions
+                  options={productTypeOptions}
+                  value={value ? productTypeOptions.find(product_type => value === product_type?.id) : null}
+                  getOptionKey={option => option?.id}
+                  getOptionLabel={option => `${option.name}`}
+                  onChange={(event, newValue) => {
+                    onChange(newValue?.id);
+                  }}
+                  renderInput={params => {
+                    return (
+                      <CustomTextField
+                        {...params}
+                        label="Product Type"
+                        placeholder="Select product-type"
+                        variant="outlined"
+                        size="small"
+                        InputLabelProps={{
+                          shrink: true
+                        }}
+                      />
+                    );
+                  }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="manufacturer"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Autocomplete
+                  filterSelectedOptions
+                  options={manufacturerOptions}
+                  value={value ? manufacturerOptions.find(manufacturer => value === manufacturer?.id) : null}
+                  getOptionKey={option => option?.id}
+                  getOptionLabel={option => `${option.name}`}
+                  onChange={(event, newValue) => {
+                    onChange(newValue?.id);
+                  }}
+                  renderInput={params => {
+                    return (
+                      <CustomTextField
+                        {...params}
+                        label="Manufacturer"
+                        placeholder="Select manufacturer"
+                        variant="outlined"
+                        size="small"
+                        InputLabelProps={{
+                          shrink: true
+                        }}
+                      />
+                    );
+                  }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <div className='flex items-center justify-start'>
+              <Typography>Is Active?</Typography>
+              <Controller
+                name="is_active"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <Switch
+                      {...field}
+                      id="is_active"
+                      checked={field.value}
+                    />
+                  );
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <div className='flex items-center justify-start'>
+              <Typography>Is Published?</Typography>
+              <Controller
+                name="is_published"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <Switch
+                      {...field}
+                      id="is_published"
+                      checked={field.value}
+                    />
+                  );
+                }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="sku"
               control={control}
               render={({ field }) => {
                 return (
                   <CustomTextField
                     {...field}
                     fullWidth
-                    id="address"
+                    id="sku"
                     variant="outlined"
-                    label="Address (optional)"
-                    placeholder="23/5, Salt Lake City, Utah"
+                    label="SKU"
+                    placeholder="sku34gs343"
 
-                    // error={!!errors.address || !field.value}
-                    helperText={errors?.address?.message}
+                    // error={!!errors.sku || !field.value}
+                    helperText={errors?.sku?.message}
+                    InputLabelProps={field.value && { shrink: true }}
+
+                  // onKeyDown={handleSubmitOnKeyDownEnter}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="gtin"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    id="gtin"
+                    variant="outlined"
+                    label="GTIN"
+                    placeholder="gtin3few3"
+
+                    // error={!!errors.gtin || !field.value}
+                    helperText={errors?.gtin?.message}
+                    InputLabelProps={field.value && { shrink: true }}
+
+                  // onKeyDown={handleSubmitOnKeyDownEnter}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="short_description"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    id="short_description"
+                    variant="outlined"
+                    label="Short Description"
+                    placeholder=""
+
+                    // error={!!errors.short_description || !field.value}
+                    helperText={errors?.short_description?.message}
+                    InputLabelProps={field.value && { shrink: true }}
+
+                  // onKeyDown={handleSubmitOnKeyDownEnter}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    id="description"
+                    variant="outlined"
+                    label="Description"
+                    placeholder=""
+
+                    // error={!!errors.description || !field.value}
+                    helperText={errors?.description?.message}
+                    InputLabelProps={field.value && { shrink: true }}
+
+                  // onKeyDown={handleSubmitOnKeyDownEnter}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="specification"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    id="specification"
+                    variant="outlined"
+                    label="Specification"
+                    placeholder=""
+
+                    // error={!!errors.specification || !field.value}
+                    helperText={errors?.specification?.message}
+                    InputLabelProps={field.value && { shrink: true }}
+
+                  // onKeyDown={handleSubmitOnKeyDownEnter}
+                  />
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="features"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    id="features"
+                    variant="outlined"
+                    label="Features"
+                    placeholder=""
+
+                    // error={!!errors.features || !field.value}
+                    helperText={errors?.features?.message}
                     InputLabelProps={field.value && { shrink: true }}
 
                   // onKeyDown={handleSubmitOnKeyDownEnter}
@@ -192,7 +444,7 @@ const ProductInformation = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography className="mt-3 mb-8" variant='h5'>
-              Product Logo (optional)
+              Product thumbnail (optional)
             </Typography>
             <div className="flex justify-center sm:justify-start flex-wrap -mx-12">
               <Controller
@@ -232,7 +484,7 @@ const ProductInformation = () => {
                 )}
               />
               {image && !previewImage && (
-                <img src={`${image}`} style={{ width: '100px', height: '100px' }} alt="Not found" />
+                <img src={`${BASE_URL}/${image}`} style={{ width: '100px', height: '100px' }} alt="Not found" />
               )}
 
               {

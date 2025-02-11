@@ -15,8 +15,8 @@ import {
   getPermissionsWP,
   getUsersWP,
   getUserPermissionsWP,
-  getAllMenuNestedWp,
-  getParentMenus,
+  getNestedMenuItemsWp,
+  getMenuItemsWp,
   getRegionsWP,
   getCountrysWP,
   getStatesWP,
@@ -24,6 +24,12 @@ import {
   getCitysWP,
   getAreasWP,
   getBranchsWP,
+  getProductCategorysWP,
+  getProductTypesWp,
+  getDiscountsWp,
+  getManufacturersWp,
+  getOrderStatussWP,
+  getPaymentMethodsWp,
 } from '@/redux-store/slices/data'
 
 import { setLoginSuccess, setLoginFailed } from '@/redux-store/slices/authentication'
@@ -58,17 +64,23 @@ export default function AuthGuard({ children, locale }) {
             dispatch(getRolesWP(data?.access, data?.csrftoken))
             dispatch(getPermissionsWP(data?.access, data?.csrftoken))
             dispatch(getUserPermissionsWP(data?.access, data?.csrftoken))
-            
-            // dispatch(getUsersWP(data?.access, data?.csrftoken))
-            // dispatch(getParentMenus(data?.access, data?.csrftoken))
-            // dispatch(getAllMenuNestedWp(data?.access, data?.csrftoken))
-
+            dispatch(getNestedMenuItemsWp(data?.access, data?.csrftoken))
             dispatch(getCountrysWP(data?.access, data?.csrftoken))
             dispatch(getStatesWP(data?.access, data?.csrftoken))
             dispatch(getDistrictsWP(data?.access, data?.csrftoken))
             dispatch(getCitysWP(data?.access, data?.csrftoken))
             dispatch(getAreasWP(data?.access, data?.csrftoken))
             dispatch(getBranchsWP(data?.access, data?.csrftoken))
+            
+            dispatch(getProductCategorysWP(data?.access, data?.csrftoken))
+            dispatch(getProductTypesWp(data?.access, data?.csrftoken))
+            dispatch(getDiscountsWp(data?.access, data?.csrftoken))
+            dispatch(getManufacturersWp(data?.access, data?.csrftoken))
+            dispatch(getOrderStatussWP(data?.access, data?.csrftoken))
+            dispatch(getPaymentMethodsWp(data?.access, data?.csrftoken))
+            
+            // dispatch(getUsersWP(data?.access, data?.csrftoken))
+            // dispatch(getMenuItemsWp(data?.access, data?.csrftoken))
           } else {
             dispatch(setLoginFailed())
 

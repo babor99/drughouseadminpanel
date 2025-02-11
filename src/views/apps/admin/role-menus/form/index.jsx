@@ -15,23 +15,24 @@ import Grid from '@mui/material/Grid'
 
 // Component Imports
 import FormHeader from './FormHeader'
-import CityInformation from './FormInformation'
+import RoleMenuInformation from './FormInformation'
 
 import { isNumber } from '@/commons/utils';
 import { getLocalizedUrl } from '@/utils/i18n';
-import { GET_CITY_BY_ID } from '@/constants/constants';
+import { GET_ROLE_MENU_BY_ID } from '@/constants/constants';
 
-const CityForm = () => {
-    const { cityId, lang: locale } = useParams()
+const RoleMenuForm = () => {
+    const { roleMenuId, lang: locale } = useParams()
 
     const accessToken = useSelector(state => state.authentication.accessToken)
     const csrfToken = useSelector(state => state.authentication.csrfToken)
-    const [city, setCity] = useState({})
+    const [roleMenu, setRoleMenu] = useState({})
 
     const router = useRouter()
 
     const yupObject = {
         name: yup.string().required('Type name is required').min(3, 'Must be at least 3 characters'),
+        menu_items: yup.array().notRequired(),
     }
 
     const schema = yup.object().shape(yupObject);
@@ -45,23 +46,23 @@ const CityForm = () => {
     const { reset, watch } = methods;
 
     useEffect(() => {
-        if (city && Object.keys(city).length) {
-            reset({ ...city })
+        if (roleMenu && Object.keys(roleMenu).length) {
+            reset({ ...roleMenu })
         }
-    }, [city])
+    }, [roleMenu])
 
     useEffect(() => {
-        if (cityId !== 'new' && !isNumber(cityId)) {
-            router.replace(getLocalizedUrl('/apps/admin/cities', locale))
+        if (roleMenuId !== 'new' && !isNumber(roleMenuId)) {
+            router.replace(getLocalizedUrl('/apps/admin/role-menus', locale))
         }
 
-        if (isNumber(cityId)) {
-            getACity()
+        if (isNumber(roleMenuId)) {
+            getARoleMenu()
         }
 
-    }, [cityId])
+    }, [roleMenuId])
 
-    function getACity() {
+    function getARoleMenu() {
         const authHeaders = {
             credentials: 'include',
             headers: {
@@ -72,16 +73,16 @@ const CityForm = () => {
         }
 
         try {
-            fetch(`${GET_CITY_BY_ID}${cityId}`, authHeaders)
+            fetch(`${GET_ROLE_MENU_BY_ID}${roleMenuId}`, authHeaders)
                 .then(res => {
                     if (res.ok && [200, 201].includes(res.status)) {
                         return res.json()
                     }
 
-                    throw new Error(`City get failed with status code ${res.status}`)
+                    throw new Error(`RoleMenu get failed with status code ${res.status}`)
                 })
                 .then(data => {
-                    setCity(data)
+                    setRoleMenu(data)
                 })
                 .catch(error => { })
         } catch (err) { }
@@ -96,7 +97,7 @@ const CityForm = () => {
                 <Grid item xs={12}>
                     <Grid container spacing={6}>
                         <Grid item xs={12}>
-                            <CityInformation />
+                            <RoleMenuInformation />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -105,4 +106,4 @@ const CityForm = () => {
     )
 }
 
-export default CityForm
+export default RoleMenuForm

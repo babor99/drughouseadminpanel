@@ -15,19 +15,23 @@ import Typography from '@mui/material/Typography'
 
 import { getLocalizedUrl } from '@/utils/i18n'
 import { isEmpty, isNumber } from '@/commons/utils'
-import { CREATE_CITY, UPDATE_CITY } from '@/constants/constants'
+import { CREATE_ROLE_MENU, UPDATE_ROLE_MENU } from '@/constants/constants'
 
 const FormHeader = () => {
-  const { cityId, lang: locale } = useParams()
-  const router = useRouter()
-
   const accessToken = useSelector(state => state.authentication.accessToken)
   const csrfToken = useSelector(state => state.authentication.csrfToken)
+  const roleOptions = useSelector(state => state.data.roles)
+
+  const { roleMenuId, lang: locale } = useParams()
+  const router = useRouter()
+
 
   const methods = useFormContext();
   const { formState, watch, getValues } = methods;
   const { isValid, dirtyFields } = formState;
-  const name = watch('name');
+  const roleId = watch('role');
+
+  console.log('roleId: ', roleId)
 
   const [loading, setLoading] = useState(false)
 
@@ -35,83 +39,76 @@ const FormHeader = () => {
     credentials: 'include',
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      'X-CSRFToken': csrfToken
+      'X-CSRFToken': csrfToken,
+      'Content-Type': 'application/json'
     }
   }
 
-  function handleSaveCity() {
+  function handleSaveRoleMenu() {
     setLoading(true)
-    const formData = new FormData()
-    const formObject = getValues()
-
-    for (let key in formObject) {
-      formData.append(key, formObject[key])
-    }
+    const data = getValues()
 
     try {
-      fetch(CREATE_CITY, {
+      fetch(CREATE_ROLE_MENU, {
         method: 'POST',
         credentials: 'include',
         headers: authHeaders.headers,
-        body: formData,
+        body: JSON.stringify({id: data?.id, role: data?.role, menu_items: data?.menu_items}),
       })
         .then(res => {
           if (res.ok && [200, 201].includes(res.status)) {
             return res.json()
           }
 
-          throw new Error(`City create failed with status code ${res.status}`)
+          throw new Error(`RoleMenu create failed with status code ${res.status}`)
         })
         .then(data => {
           setLoading(false)
-          toast.success("Success! City created successfully!")
-          router.replace(getLocalizedUrl('/apps/admin/cities', locale))
+          toast.success("Success! RoleMenu created successfully!")
+          router.replace(getLocalizedUrl('/apps/admin/role-menus', locale))
         })
         .catch(error => {
           setLoading(false)
-          toast.error("Failed! City create failed!")
+          toast.error("Failed! RoleMenu create failed!")
         })
     } catch (err) {
       setLoading(false)
-      toast.error("Failed! City create failed!")
+      toast.error("Failed! RoleMenu create failed!")
     }
   }
 
-  function handleUpdateCity() {
+  function handleUpdateRoleMenu() {
     setLoading(true)
-    const formData = new FormData()
-    const formObject = getValues()
-
-    for (let key in formObject) {
-      formData.append(key, formObject[key])
-    }
+    const data = getValues()
 
     try {
-      fetch(`${UPDATE_CITY}${cityId}`, {
+      fetch(`${UPDATE_ROLE_MENU}${roleMenuId}`, {
         method: 'PUT',
         credentials: 'include',
         headers: authHeaders.headers,
-        body: formData,
+        body: JSON.stringify({id: data?.id, role: data?.role, menu_items: data?.menu_items}),
       })
         .then(res => {
           if (res.ok && [200, 201].includes(res.status)) {
             return res.json()
           }
 
-          throw new Error(`City update failed with status code ${res.status}`)
+          throw new Error(`RoleMenu update failed with status code ${res.status}`)
         })
         .then(data => {
           setLoading(false)
-          toast.success("Success! City updated successfully!")
-          router.replace(getLocalizedUrl('/apps/admin/cities', locale))
+          toast.success("Success! RoleMenu updated successfully!")
+          router.replace(getLocalizedUrl('/apps/admin/role-menus', locale))
         })
         .catch(error => {
+          console.log('error: ', error)
           setLoading(false)
-          toast.error("Failed! City update failed!")
+          toast.error("Failed! RoleMenu update failed!")
         })
     } catch (err) {
+      console.log('err: ', err)
       setLoading(false)
-      toast.error("Failed! City update failed!")
+      toast.error("Failed! RoleMenu update failed!")
     }
   }
 
@@ -119,28 +116,28 @@ const FormHeader = () => {
     <div className='flex flex-wrap sm:items-center justify-between max-sm:flex-col gap-6'>
       <div>
         <Typography variant='h4' className='mbe-1'>
-          {cityId === 'new' ? 'New Product-Type' : isNumber(cityId) && `${name}`}
+          {roleMenuId === 'new' ? 'New Product-Type' : isNumber(roleMenuId) && `${roleOptions.find(role => roleId === role.id)?.name}`}
         </Typography>
       </div>
       <div className='flex flex-wrap max-sm:flex-col gap-4'>
-        <Link href="/en/apps/admin/cities">
+        <Link href="/en/apps/admin/role-menus">
           <Button variant='tonal' color='secondary'>Discard</Button>
         </Link>
         {
-          cityId === 'new' ?
+          roleMenuId === 'new' ?
             <Button
               variant='contained'
-              disabled={!isValid || isEmpty(dirtyFields) || loading}
-              onClick={handleSaveCity}
+              disabled={loading}
+              onClick={handleSaveRoleMenu}
             >
               Save
             </Button>
             :
-            isNumber(cityId) &&
+            isNumber(roleMenuId) &&
             <Button
               variant='contained'
-              disabled={!isValid || isEmpty(dirtyFields) || loading}
-              onClick={handleUpdateCity}
+              disabled={loading}
+              onClick={handleUpdateRoleMenu}
             >
               Update
             </Button>

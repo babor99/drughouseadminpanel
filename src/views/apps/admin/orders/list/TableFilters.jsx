@@ -1,64 +1,47 @@
-// React Imports
-import { useEffect, useState } from 'react'
-
-import { Controller, useFormContext } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
 // MUI Imports
 import { Autocomplete } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import CardContent from '@mui/material/CardContent'
-import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 
 // Component Imports
 import CustomTextField from '@core/components/mui/TextField'
 
 const TableFilters = (props) => {
+  const branchOptions = useSelector(state => state.data.branchs || [])
+  const orderStatusOptions = useSelector(state => state.data.orderStatuss || [])
+  const paymentMethodOptions = useSelector(state => state.data.paymentMethods || [])
+  
   const {
     params,
     setParams,
     getAllOrder,
   } = props
 
-  const stateOptions = useSelector(state => state.data.states)
-  const regionOptions = useSelector(state => state.data.regions)
-  const [filteredRegionOptions, setFilterRegionOptions] = useState([])
-
-  useEffect(() => {
-    const newRegionOptions = regionOptions.filter((region) => params?.state === region?.state)
-
-    setFilterRegionOptions([...newRegionOptions])
-  }, [params?.state])
-
   return (
     <CardContent>
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Autocomplete
             filterSelectedOptions
-            options={stateOptions}
-            value={params?.state ? stateOptions.find(state => params?.state === state.id) : null}
+            options={branchOptions}
+            value={params?.branch ? branchOptions.find(branch => params?.branch === branch.id) : null}
             getOptionLabel={option => `${option?.name}`}
             onChange={(event, newValue) => {
-
-
               if (newValue) {
-                setParams(prevParams => {
-                  return { ...prevParams, state: newValue.id }
-                })
+                setParams({ ...params, branch: newValue.id })
               } else {
-                setParams(prevParams => {
-                  return { ...prevParams, state: '', region: '', assigned_orders: [] }
-                })
-                getAllOrder({ ...params, state: '', region: '', assigned_orders: [] })
+                getAllOrder({ ...params, branch: ''})
+                setParams({ ...params, branch: ''})
               }
             }}
             renderInput={params => {
               return (
                 <CustomTextField
                   {...params}
-                  placeholder="Select state"
+                  placeholder="Select branch"
                   variant="outlined"
                   size="small"
                   InputLabelProps={{
@@ -70,29 +53,55 @@ const TableFilters = (props) => {
             getOptionKey={option => option?.id}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Autocomplete
             filterSelectedOptions
-            options={filteredRegionOptions}
-            value={params?.region ? filteredRegionOptions.find(region => params?.region === region.id) : null}
+            options={orderStatusOptions}
+            value={params?.status ? orderStatusOptions.find(os => params?.status === os.id) : null}
             getOptionLabel={option => `${option?.name}`}
             onChange={(event, newValue) => {
               if (newValue) {
-
-                setParams(prevParams => {
-                  return { ...prevParams, region: newValue.id }
-                })
+                setParams({ ...params, status: newValue.id })
               } else {
-                setParams(prevParams => {
-                  return { ...prevParams, region: '', assigned_orders: [] }
-                })
+                getAllOrder({ ...params, status: ''})
+                setParams({ ...params, status: ''})
               }
             }}
             renderInput={params => {
               return (
                 <CustomTextField
                   {...params}
-                  placeholder="Select region"
+                  placeholder="Select order-status"
+                  variant="outlined"
+                  size="small"
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                />
+              );
+            }}
+            getOptionKey={option => option?.id}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Autocomplete
+            filterSelectedOptions
+            options={paymentMethodOptions}
+            value={params?.payment_method ? paymentMethodOptions.find(pm => params?.payment_method === pm.id) : null}
+            getOptionLabel={option => `${option?.name}`}
+            onChange={(event, newValue) => {
+              if (newValue) {
+                setParams({ ...params, payment_method: newValue.id })
+              } else {
+                getAllOrder({ ...params, payment_method: ''})
+                setParams({ ...params, payment_method: ''})
+              }
+            }}
+            renderInput={params => {
+              return (
+                <CustomTextField
+                  {...params}
+                  placeholder="Select payment-method"
                   variant="outlined"
                   size="small"
                   InputLabelProps={{
@@ -110,7 +119,7 @@ const TableFilters = (props) => {
             color='secondary'
             className='max-sm:is-full is-auto'
             startIcon={<i className='tabler-filter' />}
-            disabled={!params?.state}
+            disabled={!params?.branch && !params?.status && !params?.payment_method}
             onClick={() => getAllOrder(params)}
           >
             Filter

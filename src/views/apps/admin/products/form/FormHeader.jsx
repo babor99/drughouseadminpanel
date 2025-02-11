@@ -18,18 +18,18 @@ import { isEmpty, isNumber } from '@/commons/utils'
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from '@/constants/constants'
 
 const FormHeader = () => {
-  const { productId, lang: locale } = useParams()
-  const router = useRouter()
-
   const accessToken = useSelector(state => state.authentication.accessToken)
   const csrfToken = useSelector(state => state.authentication.csrfToken)
+
+  const [loading, setLoading] = useState(false)
+
+  const router = useRouter()
+  const { productId, lang: locale } = useParams()
 
   const methods = useFormContext();
   const { formState, watch, getValues } = methods;
   const { isValid, dirtyFields } = formState;
   const name = watch('name');
-
-  const [loading, setLoading] = useState(false)
 
   const authHeaders = {
     credentials: 'include',
@@ -120,9 +120,6 @@ const FormHeader = () => {
 
     }
   }
-
-
-
 
   return (
     <div className='flex flex-wrap sm:items-center justify-between max-sm:flex-col gap-6'>

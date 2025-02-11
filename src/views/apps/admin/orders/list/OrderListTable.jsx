@@ -77,7 +77,7 @@ const OrderListTable = (props) => {
           <CustomTextField
             placeholder='Search'
             className='max-sm:is-full'
-            value={searchKeyword ?? ''}
+            defaultValue={params?.keyword}
             onChange={e => {
               if (e.target.value.length === 0) {
                 getAllOrder({ ...params, keyword: '' })

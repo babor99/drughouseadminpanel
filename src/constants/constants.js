@@ -61,18 +61,17 @@ export const UPDATE_ROLE = `${BASE_URL}/role/api/v1/role/update/`
 export const DELETE_ROLE = `${BASE_URL}/role/api/v1/role/delete/`
 
 // ROLE_MENU
-export const GET_ROLEMENUS = `${BASE_URL}/role_menu/api/v1/role_menu/all`
-export const GET_ROLEMENU_BY_ID = `${BASE_URL}/role_menu/api/v1/role_menu/`
-export const CREATE_ROLEMENU = `${BASE_URL}/role_menu/api/v1/role_menu/create/`
-export const UPDATE_ROLEMENU = `${BASE_URL}/role_menu/api/v1/role_menu/update/`
-export const DELETE_ROLEMENU = `${BASE_URL}/role_menu/api/v1/role_menu/delete/`
-export const SEARCH_ROLEMENU = `${BASE_URL}/role_menu/api/v1/role_menu/search/`
+export const GET_ROLE_MENUS = `${BASE_URL}/role_menu/api/v1/role_menu/all`
+export const GET_ROLE_MENU_BY_ID = `${BASE_URL}/role_menu/api/v1/role_menu/`
+export const CREATE_ROLE_MENU = `${BASE_URL}/role_menu/api/v1/role_menu/create/`
+export const UPDATE_ROLE_MENU = `${BASE_URL}/role_menu/api/v1/role_menu/update/`
+export const DELETE_ROLE_MENU = `${BASE_URL}/role_menu/api/v1/role_menu/delete/`
 
 // MENU_ITEM
-export const GET_MENU_ITEMS_BY_USER_ROLE = `${BASE_URL}/menu_item/api/v1/menu_item/nested/by_user_role/wp/all/`
-export const GET_MENU_ITEMS_ALL_NESTED = `${BASE_URL}/menu_item/api/v1/menu_item/nested/wp/all/`
+export const GET_NESTED_MENU_ITEMS_WP_BY_USER_ROLE = `${BASE_URL}/menu_item/api/v1/menu_item/nested/by_user_role/wp/all/`
+export const GET_NESTED_MENU_ITEMS_WP = `${BASE_URL}/menu_item/api/v1/menu_item/nested/wp/all/`
 export const GET_MENU_ITEMS_WP = `${BASE_URL}/menu_item/api/v1/menu_item/wp/all/`
-export const GET_MENU_ITEMS_ALL = `${BASE_URL}/menu_item/api/v1/menu_item/all/`
+export const GET_MENU_ITEMS = `${BASE_URL}/menu_item/api/v1/menu_item/all/`
 export const GET_MENU_ITEM_BY_ID = `${BASE_URL}/menu_item/api/v1/menu_item/`
 export const CREATE_MENU_ITEM = `${BASE_URL}/menu_item/api/v1/menu_item/create/`
 export const UPDATE_MENU_ITEM = `${BASE_URL}/menu_item/api/v1/menu_item/update/`
