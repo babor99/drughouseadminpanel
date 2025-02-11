@@ -55,7 +55,7 @@ const OrderForm = () => {
 
     useEffect(() => {
         if (orderId !== 'new' && !isNumber(orderId)) {
-            router.replace(getLocalizedUrl('/apps/order', locale))
+            router.replace(getLocalizedUrl('/apps/admin/orders', locale))
         }
 
         if (isNumber(orderId)) {
@@ -95,8 +95,6 @@ const OrderForm = () => {
 
         }
     }
-
-
 
     return (
         <FormProvider {...methods}>

@@ -6,13 +6,13 @@ import { useSelector } from 'react-redux'
 
 import { getLocalizedUrl } from '@/utils/i18n'
 
-import OrderForm from '@/views/apps/admin/orders/form'
+import OrderMasterDetail from '@/views/apps/admin/orders/details'
 
-const OrderFormPage = () => {
+const OrderMasterDetailPage = () => {
     const isAdmin = useSelector(state => state.user.is_admin)
 
     const router = useRouter()
-    const { lang: locale } = useParams()
+    const { orderId, lang: locale } = useParams()
 
     if (!isAdmin) {
         router.replace(getLocalizedUrl('/', locale))
@@ -21,10 +21,10 @@ const OrderFormPage = () => {
     return (
         <>
             {
-                isAdmin ? <OrderForm /> : ''
+                isAdmin ? <OrderMasterDetail /> : ''
             }
         </>
     )
 }
 
-export default OrderFormPage
+export default OrderMasterDetailPage

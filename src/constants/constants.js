@@ -282,6 +282,7 @@ export const DELETE_DISCOUNT_TYPE = `${BASE_URL}/discount_type/api/v1/discount_t
 export const GET_ORDERS_WP = `${BASE_URL}/order/api/v1/order/wp/all/`
 export const GET_ORDERS = `${BASE_URL}/order/api/v1/order/all/`
 export const GET_ORDER_BY_ID = `${BASE_URL}/order/api/v1/order/`
+export const GET_ORDER_MASTER_DETAIL_BY_ID = `${BASE_URL}/order/api/v1/order/master_detail/`
 export const CREATE_ORDER = `${BASE_URL}/order/api/v1/order/create/`
 export const UPDATE_ORDER = `${BASE_URL}/order/api/v1/order/update/`
 export const DELETE_ORDER = `${BASE_URL}/order/api/v1/order/delete/`
