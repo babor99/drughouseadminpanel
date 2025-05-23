@@ -21,7 +21,7 @@ const EventFormPage = () => {
     return (
         <>
             {
-                isRPM ? <EventForm /> : ''
+                isRPM ? <EventForm />
             }
         </>
     )

@@ -21,7 +21,7 @@ const StudentListPage = () => {
     return (
         <>
             {
-                isTeacher ? <StudentList /> : ''
+                isTeacher ? <StudentList />
             }
         </>
     )

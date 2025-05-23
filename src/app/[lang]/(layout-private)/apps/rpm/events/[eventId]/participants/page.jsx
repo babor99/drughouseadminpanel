@@ -21,7 +21,7 @@ const EventParticipantListPage = () => {
     return (
         <>
             {
-                isRPM ? <EventParticipantList /> : ''
+                isRPM ? <EventParticipantList />
             }
         </>
     )

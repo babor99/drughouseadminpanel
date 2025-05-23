@@ -21,7 +21,7 @@ const CourseDetailsPage = () => {
   return (
     <>
       {
-        isStudent ? <MyCourseDetails /> : ''
+        isStudent ? <MyCourseDetails />
       }
     </>
   )

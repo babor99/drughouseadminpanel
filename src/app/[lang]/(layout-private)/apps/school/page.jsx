@@ -14,14 +14,14 @@ const SchoolListPage = () => {
     const router = useRouter()
     const { lang: locale } = useParams()
 
-    if (!isAdmin) {
-        router.replace(getLocalizedUrl('/', locale))
-    }
+    // if (!isAdmin) {
+    //     router.replace(getLocalizedUrl('/', locale))
+    // }
 
     return (
         <>
             {
-                isAdmin ? <SchoolList /> : ''
+                <SchoolList />
             }
         </>
     )

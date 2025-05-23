@@ -23,7 +23,7 @@ const BestRatedCoursePage = () => {
   return (
     <>
       {
-        (isAdmin || isStudent) ? <BestRatedCourses mode={undefined} /> : ''
+        (isAdmin || isStudent) ? <BestRatedCourses mode={undefined} />
       }
     </>
   )

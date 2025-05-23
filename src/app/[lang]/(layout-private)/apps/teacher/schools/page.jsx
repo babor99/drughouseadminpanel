@@ -21,7 +21,7 @@ const TeacherSchoolListPage = () => {
     return (
         <>
             {
-                isTeacher ? <TeacherSchoolList /> : ''
+                isTeacher ? <TeacherSchoolList />
             }
         </>
     )

@@ -24,6 +24,7 @@ import {
   getCitysWP,
   getAreasWP,
   getBranchsWP,
+  getProductsWP,
   getProductCategorysWP,
   getProductTypesWp,
   getDiscountsWp,
@@ -72,6 +73,7 @@ export default function AuthGuard({ children, locale }) {
             dispatch(getAreasWP(data?.access, data?.csrftoken))
             dispatch(getBranchsWP(data?.access, data?.csrftoken))
             
+            dispatch(getProductsWP(data?.access, data?.csrftoken))
             dispatch(getProductCategorysWP(data?.access, data?.csrftoken))
             dispatch(getProductTypesWp(data?.access, data?.csrftoken))
             dispatch(getDiscountsWp(data?.access, data?.csrftoken))

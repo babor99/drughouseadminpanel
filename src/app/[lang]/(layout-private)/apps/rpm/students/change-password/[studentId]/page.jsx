@@ -21,7 +21,7 @@ const RPMStudentChangePasswordFormPage = () => {
     return (
         <>
             {
-                isRPM ? <RPMStudentChangePasswordForm /> : ''
+                isRPM ? <RPMStudentChangePasswordForm />
             }
         </>
     )

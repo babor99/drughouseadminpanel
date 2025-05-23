@@ -87,10 +87,13 @@ const HorizontalMenu = ({ dictionary }) => {
           isAdmin ?
             (
               <>
-                <MenuItem href={`/${locale}/apps/admin/orders`} icon={<i className='tabler-garden-cart' />}>
+                <MenuItem href={`/${locale}/apps/store/orders/new`} icon={<i className='tabler-shopping-cart-plus' />}>
+                  New Order
+                </MenuItem>
+                <MenuItem href={`/${locale}/apps/store/orders`} icon={<i className='tabler-garden-cart' />}>
                   Orders
                 </MenuItem>
-                <MenuItem href={`/${locale}/apps/admin/products`} icon={<i className='tabler-brand-producthunt' />}>
+                <MenuItem href={`/${locale}/apps/store/products`} icon={<i className='tabler-brand-producthunt' />}>
                   Products
                 </MenuItem>
                 <SubMenu
@@ -100,9 +103,9 @@ const HorizontalMenu = ({ dictionary }) => {
 
                 // suffix={<CustomChip label='1' size='small' color='error' round='true' />}
                 >
-                  <MenuItem href={`/${locale}/apps/admin/employees`} icon={<i className='tabler-users' />}>Employees</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/roles`} icon={<i className='tabler-lock-cog' />}>Roles</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/role-menus`} icon={<i className='tabler-lock-code' />}>Role Menus</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/employees`} icon={<i className='tabler-users' />}>Employees</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/roles`} icon={<i className='tabler-lock-cog' />}>Roles</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/role-menus`} icon={<i className='tabler-lock-code' />}>Role Menus</MenuItem>
                 </SubMenu>
                 <SubMenu
                   label="Settings"
@@ -111,18 +114,18 @@ const HorizontalMenu = ({ dictionary }) => {
 
                 // suffix={<CustomChip label='1' size='small' color='error' round='true' />}
                 >
-                  <MenuItem href={`/${locale}/apps/admin/product-categories`} icon={<i className='tabler-category' />}>Product Categories</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/product-types`} icon={<i className='tabler-category-2' />}>Product Types</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/manufacturers`} icon={<i className='tabler-users' />}>Manufacturers</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/payment-methods`} icon={<i className='tabler-brand-visa' />}>Payment Methods</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/order-statuses`} icon={<i className='tabler-status-change' />}>Order Statuses</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/discount-types`} icon={<i className='tabler-discount' />}>Discount Types</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/countries`} icon={<i className='tabler-map-pin' />}>Countries</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/states`} icon={<i className='tabler-map-pins' />}>States</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/districts`} icon={<i className='tabler-map-pins' />}>Districts</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/cities`} icon={<i className='tabler-map-pins' />}>Cities</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/areas`} icon={<i className='tabler-map-pins' />}>Areas</MenuItem>
-                  <MenuItem href={`/${locale}/apps/admin/branches`} icon={<i className='tabler-git-branch' />}>Branches</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/product-categories`} icon={<i className='tabler-category' />}>Product Categories</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/product-types`} icon={<i className='tabler-category-2' />}>Product Types</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/manufacturers`} icon={<i className='tabler-users' />}>Manufacturers</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/payment-methods`} icon={<i className='tabler-brand-visa' />}>Payment Methods</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/order-statuses`} icon={<i className='tabler-status-change' />}>Order Statuses</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/discount-types`} icon={<i className='tabler-discount' />}>Discount Types</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/countries`} icon={<i className='tabler-map-pin' />}>Countries</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/states`} icon={<i className='tabler-map-pins' />}>States</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/districts`} icon={<i className='tabler-map-pins' />}>Districts</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/cities`} icon={<i className='tabler-map-pins' />}>Cities</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/areas`} icon={<i className='tabler-map-pins' />}>Areas</MenuItem>
+                  <MenuItem href={`/${locale}/apps/store/branches`} icon={<i className='tabler-git-branch' />}>Branches</MenuItem>
                 </SubMenu>
               </>
             )

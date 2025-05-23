@@ -21,7 +21,7 @@ const StudentFormPage = () => {
     return (
         <>
             {
-                isTeacher ? <StudentForm /> : ''
+                isTeacher ? <StudentForm />
             }
         </>
     )

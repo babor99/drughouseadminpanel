@@ -21,7 +21,7 @@ const RPMTeacherFormPage = () => {
     return (
         <>
             {
-                isRPM ? <RPMTeacherForm /> : ''
+                isRPM ? <RPMTeacherForm />
             }
         </>
     )

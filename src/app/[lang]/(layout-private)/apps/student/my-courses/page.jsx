@@ -22,7 +22,7 @@ const MyCoursePage = () => {
   return (
     <>
       {
-        isStudent ? <MyCourses mode={undefined} /> : ''
+        isStudent ? <MyCourses mode={undefined} />
       }
     </>
   )

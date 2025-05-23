@@ -63,7 +63,7 @@ const FormHeader = () => {
         .then(data => {
 
           setLoading(false)
-          router.replace(getLocalizedUrl('/apps/admin/schools', locale))
+          router.replace(getLocalizedUrl('/apps/store/schools', locale))
         })
         .catch(error => {
           setLoading(false)
@@ -101,7 +101,7 @@ const FormHeader = () => {
         .then(data => {
 
           setLoading(false)
-          router.replace(getLocalizedUrl('/apps/admin/schools', locale))
+          router.replace(getLocalizedUrl('/apps/store/schools', locale))
         })
         .catch(error => {
           setLoading(false)
@@ -124,7 +124,7 @@ const FormHeader = () => {
         </Typography>
       </div>
       <div className='flex flex-wrap max-sm:flex-col gap-4'>
-        <Link href="/en/apps/admin/schools">
+        <Link href="/en/apps/store/schools">
           <Button variant='tonal' color='secondary'>Discard</Button>
         </Link>
         {

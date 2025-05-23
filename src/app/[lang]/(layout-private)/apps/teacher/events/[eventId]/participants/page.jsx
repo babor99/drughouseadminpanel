@@ -21,7 +21,7 @@ const EventParticipantListPage = () => {
     return (
         <>
             {
-                isTeacher ? <EventParticipantList /> : ''
+                isTeacher ? <EventParticipantList />
             }
         </>
     )

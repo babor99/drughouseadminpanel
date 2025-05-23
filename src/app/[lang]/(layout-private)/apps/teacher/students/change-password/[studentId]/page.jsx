@@ -21,7 +21,7 @@ const StudentChangePasswordFormPage = () => {
     return (
         <>
             {
-                isTeacher ? <StudentChangePasswordForm /> : ''
+                isTeacher ? <StudentChangePasswordForm />
             }
         </>
     )

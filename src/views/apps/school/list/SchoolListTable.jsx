@@ -97,7 +97,7 @@ const ProductListTable = (props) => {
               variant='contained'
               component={Link}
               className='max-sm:is-full is-auto'
-              href={getLocalizedUrl('/apps/admin/schools/new', locale)}
+              href={getLocalizedUrl('/apps/store/schools/new', locale)}
               startIcon={<i className='tabler-plus' />}
             >
               New School

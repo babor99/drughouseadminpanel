@@ -21,7 +21,7 @@ const CompetitionFormPage = () => {
     return (
         <>
             {
-                isRPM ? <CompetitionForm /> : ''
+                isRPM ? <CompetitionForm />
             }
         </>
     )

@@ -21,7 +21,7 @@ const RPMStudentListPage = () => {
     return (
         <>
             {
-                isRPM ? <RPMStudentList /> : ''
+                isRPM ? <RPMStudentList />
             }
         </>
     )

@@ -13,6 +13,7 @@ import {
   GET_CITYS_WP,
   GET_AREAS_WP,
   GET_BRANCHS_WP,
+  GET_PRODUCTS_WP,
   GET_PRODUCT_CATEGORYS_WP,
   GET_PRODUCT_TYPES_WP,
   GET_DISCOUNTS_WP,
@@ -217,6 +218,22 @@ export const getBranchsWP = (accessToken, csrfToken) => dispatch => {
     .catch(() => { })
 }
 
+export const getProductsWP = (accessToken, csrfToken) => dispatch => {
+  const authHeaders = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'X-CSRFToken': csrfToken
+    }
+  }
+
+  fetch(GET_PRODUCTS_WP, authHeaders)
+    .then(response => response.json())
+    .then(data => dispatch(setProducts(data.products || [])))
+    .catch(() => { })
+}
+
 export const getProductCategorysWP = (accessToken, csrfToken) => dispatch => {
   const authHeaders = {
     credentials: 'include',
@@ -329,6 +346,7 @@ const dataSlice = createSlice({
     citys: [],
     areas: [],
     branchs: [],
+    products: [],
     productCategorys: [],
     productTypes: [],
     discounts: [],
@@ -377,6 +395,9 @@ const dataSlice = createSlice({
     setBranchs: (state, action) => {
       state.branchs = action.payload ? action.payload : []
     },
+    setProducts: (state, action) => {
+      state.products = action.payload ? action.payload : []
+    },
     setProductCategorys: (state, action) => {
       state.productCategorys = action.payload ? action.payload : []
     },
@@ -411,6 +432,7 @@ const {
   setCitys,
   setAreas,
   setBranchs,
+  setProducts,
   setProductCategorys,
   setProductTypes,
   setDiscounts,

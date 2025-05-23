@@ -22,7 +22,7 @@ const InstructorLecturePage = () => {
   return (
     <>
       {
-        isInstructor ? <InstructorLectures mode={undefined} /> : ''
+        isInstructor ? <InstructorLectures mode={undefined} />
       }
     </>
   )

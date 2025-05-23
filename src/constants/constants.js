@@ -284,6 +284,9 @@ export const GET_ORDERS = `${BASE_URL}/order/api/v1/order/all/`
 export const GET_ORDER_BY_ID = `${BASE_URL}/order/api/v1/order/`
 export const GET_ORDER_MASTER_DETAIL_BY_ID = `${BASE_URL}/order/api/v1/order/master_detail/`
 export const CREATE_ORDER = `${BASE_URL}/order/api/v1/order/create/`
+export const CREATE_ONLINE_ORDER = `${BASE_URL}/order/api/v1/order_online/create/`
+export const CREATE_LOCAL_ORDER = `${BASE_URL}/order/api/v1/order_local/create/`
+export const UPDATE_LOCAL_ORDER = `${BASE_URL}/order/api/v1/order_local/update/`
 export const UPDATE_ORDER = `${BASE_URL}/order/api/v1/order/update/`
 export const DELETE_ORDER = `${BASE_URL}/order/api/v1/order/delete/`
 

@@ -23,7 +23,7 @@ const CoursePage = () => {
   return (
     <>
       {
-        (isAdmin || isStudent) ? <PremiumCourses mode={undefined} /> : ''
+        (isAdmin || isStudent) ? <PremiumCourses mode={undefined} />
       }
     </>
   )

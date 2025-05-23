@@ -4,7 +4,6 @@
 import { useEffect, useState } from 'react'
 
 // Next Imports
-import Link from 'next/link'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -57,6 +56,7 @@ import {
   getCitysWP,
   getAreasWP,
   getBranchsWP,
+  getProductsWP,
   getProductCategorysWP,
   getProductTypesWp,
   getDiscountsWp,
@@ -199,6 +199,7 @@ const Login = ({ mode }) => {
             dispatch(getAreasWP(data?.access, data?.csrftoken))
             dispatch(getBranchsWP(data?.access, data?.csrftoken))
 
+            dispatch(getProductsWP(data?.access, data?.csrftoken))
             dispatch(getProductCategorysWP(data?.access, data?.csrftoken))
             dispatch(getProductTypesWp(data?.access, data?.csrftoken))
             dispatch(getDiscountsWp(data?.access, data?.csrftoken))
@@ -267,6 +268,7 @@ const Login = ({ mode }) => {
             dispatch(getAreasWP(data?.access, data?.csrftoken))
             dispatch(getBranchsWP(data?.access, data?.csrftoken))
 
+            dispatch(getProductsWP(data?.access, data?.csrftoken))
             dispatch(getProductCategorysWP(data?.access, data?.csrftoken))
             dispatch(getProductTypesWp(data?.access, data?.csrftoken))
             dispatch(getDiscountsWp(data?.access, data?.csrftoken))
